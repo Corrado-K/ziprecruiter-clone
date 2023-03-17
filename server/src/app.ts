@@ -3,8 +3,8 @@ import cors from 'cors'
 import morgan from 'morgan'
 import dotenv from "dotenv";
 // import router from './routes/routes';
-// import { errorHandler } from './middlewares/errorHandler.middleware';
-// import { NotFoundHandler } from './middlewares/notFoundHandler.middleware';
+import { errorHandler } from './middlewares/middleware.errorHandler';
+import { NotFoundHandler } from './middlewares/middleware.notFoundHandler';
 
 const app: Express = express()
 
@@ -17,12 +17,12 @@ app.use(json())
 app.use(cors())
 app.use(morgan("dev"))
 
-
+// Router
 // app.use(router)
 
-// // Error handler
-// app.use(errorHandler)
-// app.use(NotFoundHandler)
+// Error handler
+app.use(errorHandler)
+app.use(NotFoundHandler)
 
 app.get('/health', (req: Request, res: Response) => {
      res.send('API working')

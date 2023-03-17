@@ -1,10 +1,12 @@
 import express,  {Express, Request, Response, urlencoded, json} from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
-import dotenv from "dotenv";
+import dotenv from 'dotenv'
+import compression from 'compression'
 // import router from './routes/routes';
-import { errorHandler } from './middlewares/middleware.errorHandler';
-import { NotFoundHandler } from './middlewares/middleware.notFoundHandler';
+import { errorHandler } from './middlewares/middleware.errorHandler'
+import { NotFoundHandler } from './middlewares/middleware.notFoundHandler'
+import { upload } from './middlewares/middleware.fileHandler'
 
 const app: Express = express()
 
@@ -15,7 +17,11 @@ dotenv.config()
 app.use(urlencoded({ extended: true }))
 app.use(json())
 app.use(cors())
+app.use(compression())
 app.use(morgan("dev"))
+
+// File handler
+app.use(upload.single('file'))
 
 // Router
 // app.use(router)

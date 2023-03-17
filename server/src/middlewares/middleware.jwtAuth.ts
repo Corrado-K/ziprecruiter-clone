@@ -15,13 +15,8 @@ export const jwtAuth = (req: Request, res: Response, next: NextFunction) => {
 
      jwt.verify(accessToken, ACCESS_TOKEN , async (error: any, userData) => {
           // pass error to next
-          if (error) {
-               return res.status(403).json({
-                    error: error
-               })
-          }
           res.locals.user = userData as jwt.JwtPayload
-          next()
+          next(error)
      })
 
 }

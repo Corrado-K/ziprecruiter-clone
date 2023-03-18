@@ -1,11 +1,11 @@
 import axios, { AxiosError } from "axios";
 import jwtDecode from "jwt-decode";
-import { BASE_URL } from "../utils/constants";
+import { SERVER_URL } from "../utils/constants";
 import { clearUserData, getRefreshToken, setUserData } from "../utils/token.utils";
 import { LoginResponse } from "../interface/index";
 
 const axiosInstance = axios.create({
-     baseURL: BASE_URL,
+     baseURL: SERVER_URL,
      headers: {
           "Content-Type": "application/json",
      },
@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(async (config) => {
                console.log("refreshing token before request...");
                const refreshToken = getRefreshToken();
                const { data } = await axios.post<LoginResponse>(
-                    `${BASE_URL}/auth/refresh-token`,
+                    `${SERVER_URL}/auth/refresh-token`,
                     { token: refreshToken }
                );
                config.headers.Authorization = `Bearer ${data.accessToken}`;

@@ -5,6 +5,7 @@ import { clearUserData, getUserData, setUserData } from "../utils/token.utils";
 import axios from "axios";
 import jwtDecode from 'jwt-decode'
 import axiosInstance from "../utils/axios.utils";
+import { SERVER_URL } from "../utils/constants";
 
 interface IAuthContext extends Omit<User, "accessToken"> {
      isLoggedIn: boolean;
@@ -58,7 +59,7 @@ export const AuthContextProvider: FC<Prop> = ({children}) => {
           setRole(null)
           setIsLoggedIn(false)
 
-          const { data } = await axios.post<LoginResponse>(`${URL}/auth/login`, { email, password })
+          const { data } = await axios.post<LoginResponse>(`${SERVER_URL}/auth/login`, { email, password })
           const jwtData = jwtDecode(data.accessToken) as IDecodeJWT
 
           setId(jwtData.id) 

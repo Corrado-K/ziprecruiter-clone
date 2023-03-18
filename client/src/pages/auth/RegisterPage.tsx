@@ -1,29 +1,37 @@
-import Container from "../../components/Container";
 import { Link } from "react-router-dom";
+import Container from "../../components/Container";
+import { registerSchema } from "../../schema/index";
 import { useFormik } from "formik";
-import { loginSchema } from "../../schema/index";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
-export const LoginPage = () => {
-     const { login } = useContext(AuthContext);
+export const RegisterPage = () => {
+     const { signup } = useContext(AuthContext);
 
      const formik = useFormik({
           initialValues: {
+               firstName: "",
+               lastName: "",
                email: "",
                password: "",
           },
           onSubmit: (values) => {
-               login(values.email, values.password);
+               signup(
+                    values.firstName,
+                    values.lastName,
+                    values.email,
+                    values.password
+               );
+               console.log(values);
           },
-          validationSchema: loginSchema,
+          validationSchema: registerSchema,
      });
 
      return (
           <Container>
                <div className="flex justify-center items-center h-[90vh]">
                     <div className="bg-white flex flex-col items-center w-[30%] pt-10 pb-8 shadow-lg rounded-md">
-                         <h2 className="text-3xl font-medium mb-8">Sign In</h2>
+                         <h2 className="text-3xl font-medium mb-8">Register</h2>
 
                          <div className="flex space-x-7 mb-10">
                               <div className="flex flex-col items-center">
@@ -55,8 +63,26 @@ export const LoginPage = () => {
                          >
                               <div className="flex flex-col space-y-3 w-[90%]">
                                    <input
+                                        type="text"
+                                        className="py-3 px-5 bg-white border"
+                                        placeholder="First Name"
+                                        name="firstName"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.firstName}
+                                   />
+                                   <input
+                                        type="text"
+                                        className="py-3 px-5 bg-white border"
+                                        placeholder="Last Name"
+                                        name="lastName"
+                                        onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.lastName}
+                                   />
+                                   <input
                                         type="email"
-                                        className="py-3 px-5 bg-transparent border"
+                                        className="py-3 px-5 bg-white border"
                                         placeholder="Email Address"
                                         name="email"
                                         onChange={formik.handleChange}
@@ -65,7 +91,7 @@ export const LoginPage = () => {
                                    />
                                    <input
                                         type="password"
-                                        className="py-3 px-5 bg-transparent border"
+                                        className="py-3 px-5 bg-white border"
                                         placeholder="Password"
                                         name="password"
                                         onChange={formik.handleChange}
@@ -74,9 +100,7 @@ export const LoginPage = () => {
                                    />
                               </div>
 
-                              <span className="text-right w-[90%] mt-5 text-sm text-sky-400">
-                                   Forgot Password?
-                              </span>
+                              <span className="my-5"></span>
 
                               <button className="w-[90%] p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
                                    Sign In
@@ -85,11 +109,9 @@ export const LoginPage = () => {
                          </form>
 
                          <p className={`flex space-x-2 text-xs mt-5`}>
-                              <span>New to ZipRecruiter?</span>
-                              <Link to={"/register"}>
-                                   <span className="text-sky-400">
-                                        Create a new account
-                                   </span>
+                              <span>Already have an account?</span>
+                              <Link to={"/login"}>
+                                   <span className="text-sky-400">Login</span>
                               </Link>
                          </p>
                     </div>

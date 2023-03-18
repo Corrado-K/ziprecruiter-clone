@@ -1,18 +1,23 @@
 import React from "react";
 import { toRem } from '../utils/toRem';
 import ZipRecruiterLogo from "../assets/ZipRecruiterLogo";
+import { Link } from "react-router-dom";
 
 export const ClientNavbar = () => {
      const navMenuItems = [{ name: "Jobs" }, { name: "Salaries" }, { name: "Profile"} ];
 
      return (
           <div style={navbarStyle} className="">
-               <div style={logoStyle}><ZipRecruiterLogo /></div>
+               <div style={logoStyle}>
+                    <Link to={'/'}>
+                         <ZipRecruiterLogo />
+                    </Link>
+               </div>
 
                <div style={menuStyle}>
                     {
-                         navMenuItems.map((item) => (
-                              <span style={menuItemStyle}>{item.name}</span>
+                         navMenuItems.map((item, index) => (
+                              <span key={index} style={menuItemStyle}>{item.name}</span>
                          ))
                     }
                </div>

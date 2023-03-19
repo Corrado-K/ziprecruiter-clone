@@ -6,8 +6,8 @@ export const loginSchema = yup.object().shape({
 })
 
 export const registerSchema = yup.object().shape({
-     firstName: yup.string(),
-     lastName: yup.string(),
+     fname: yup.string(),
+     lname: yup.string(),
      email: yup.string().email(),
      password: yup.string(),
 

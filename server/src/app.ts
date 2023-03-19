@@ -7,6 +7,7 @@ import compression from 'compression'
 import { errorHandler } from './middlewares/middleware.errorHandler'
 import { NotFoundHandler } from './middlewares/middleware.notFoundHandler'
 import { upload } from './middlewares/middleware.fileHandler'
+import router from './routes/routes'
 
 const app: Express = express()
 
@@ -24,7 +25,7 @@ app.use(morgan("dev"))
 app.use(upload.single('file'))
 
 // Router
-// app.use(router)
+app.use(router)
 
 // Error handler
 app.use(errorHandler)

@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { loginSchema } from "../../schema/index";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { AxiosError } from "axios";
 
 export const LoginPage = () => {
      const { login } = useContext(AuthContext);
@@ -13,8 +14,12 @@ export const LoginPage = () => {
                email: "",
                password: "",
           },
-          onSubmit: (values) => {
-               login(values.email, values.password);
+          onSubmit: async (values) => {
+               try {
+                    await login(values.email, values.password);
+               } catch (error) {
+                    const { response } = error as AxiosError<{ message: string }>;
+               }
           },
           validationSchema: loginSchema,
      });
@@ -27,13 +32,13 @@ export const LoginPage = () => {
 
                          <div className="flex space-x-7 mb-10">
                               <div className="flex flex-col items-center">
-                                   <span className="text-sm font-medium">
+                                   <span className="flex text-sm font-medium">
                                         I'm an employer
                                    </span>
                                    <span className="bg-[#277f6a] w-32 h-1 mt-3 rounded-t-md"></span>
                               </div>
                               <div className="flex flex-col items-center">
-                                   <span className="text-sm font-medium">
+                                   <span className="flex text-sm font-medium">
                                         I'm an job seeker
                                    </span>
                                    <span className="bg-[#277f6a] w-32 h-1 mt-3 rounded-t-md"></span>
@@ -78,7 +83,7 @@ export const LoginPage = () => {
                                    Forgot Password?
                               </span>
 
-                              <button className="w-[90%] p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
+                              <button type="submit" className="w-[90%] p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
                                    Sign In
                               </button>
                               {/* End form */}

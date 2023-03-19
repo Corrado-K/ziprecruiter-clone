@@ -4,25 +4,32 @@ import { registerSchema } from "../../schema/index";
 import { useFormik } from "formik";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { AxiosError } from "axios";
 
 export const RegisterPage = () => {
      const { signup } = useContext(AuthContext);
 
      const formik = useFormik({
           initialValues: {
-               firstName: "",
-               lastName: "",
+               fname: "",
+               lname: "",
                email: "",
                password: "",
           },
-          onSubmit: (values) => {
-               signup(
-                    values.firstName,
-                    values.lastName,
-                    values.email,
-                    values.password
-               );
-               console.log(values);
+          onSubmit: async (values) => {
+               try {
+                    await signup(
+                         values.fname,
+                         values.lname,
+                         values.email,
+                         values.password
+                    );
+                    console.log(values);
+               } catch (error) {
+                    const { response } = error as AxiosError<{ message: string }>;
+
+               }
+               
           },
           validationSchema: registerSchema,
      });
@@ -66,19 +73,19 @@ export const RegisterPage = () => {
                                         type="text"
                                         className="py-3 px-5 bg-white border"
                                         placeholder="First Name"
-                                        name="firstName"
+                                        name="fname"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        value={formik.values.firstName}
+                                        value={formik.values.fname}
                                    />
                                    <input
                                         type="text"
                                         className="py-3 px-5 bg-white border"
                                         placeholder="Last Name"
-                                        name="lastName"
+                                        name="lname"
                                         onChange={formik.handleChange}
                                         onBlur={formik.handleBlur}
-                                        value={formik.values.lastName}
+                                        value={formik.values.lname}
                                    />
                                    <input
                                         type="email"
@@ -102,7 +109,7 @@ export const RegisterPage = () => {
 
                               <span className="my-5"></span>
 
-                              <button className="w-[90%] p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
+                              <button type="submit" className="w-[90%] p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
                                    Sign In
                               </button>
                               {/* End form */}

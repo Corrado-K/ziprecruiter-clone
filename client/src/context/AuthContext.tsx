@@ -11,7 +11,7 @@ interface IAuthContext extends Omit<User, "accessToken"> {
      isLoggedIn: boolean;
      setIsLoggedIn: (status: boolean) => void;
      login: ( email: string, password: string ) => Promise<void>;
-     signup: ( firstName: string, lastName: string, email: string, password: string ) => Promise<void>;
+     signup: ( fname: string, lname: string, email: string, password: string ) => Promise<void>;
      logout: () => Promise<void>;
 }
 
@@ -42,14 +42,16 @@ export const AuthContextProvider: FC<Prop> = ({children}) => {
      const navigator = useNavigate()
 
      // login function using axios to make api call
-     const signup = async (firstName : string, lastName: string, email: string, password: string) => {
+     const signup = async (fname : string, lname: string, email: string, password: string) => {
           // Set the values as null before assigning to prevent errors
           setId(null) 
           setEmail(null)
           setRole(null)
           setIsLoggedIn(false)
-          await axios.post(`${URL}/auth/signup`, { firstName, lastName, email, password })
-          navigator('/')
+          const response = await axios.post(`${SERVER_URL}/auth/register`, { fname, lname, email, password })
+          console.log(response);
+          
+          navigator('/login')
      }
 
      const login = async (email: string, password: string) => {
@@ -60,8 +62,9 @@ export const AuthContextProvider: FC<Prop> = ({children}) => {
           setIsLoggedIn(false)
 
           const { data } = await axios.post<LoginResponse>(`${SERVER_URL}/auth/login`, { email, password })
+          
           const jwtData = jwtDecode(data.accessToken) as IDecodeJWT
-
+          
           setId(jwtData.id) 
           setEmail(jwtData.email)
           setRole(jwtData.role)

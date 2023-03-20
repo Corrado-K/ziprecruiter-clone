@@ -75,7 +75,7 @@ export const AuthContextProvider: FC<Prop> = ({children}) => {
 
           // after login, navigate to either page you previous were at, or home
           let redirectPath = "/";
-          if (jwtData.role === "candidate") {
+          if (jwtData.role === "CANDIDATE") {
                const redirect_to = localStorage.getItem('redirect_to');
                const params = localStorage.getItem('redirect_query_param');
                if (redirect_to != null) {
@@ -88,6 +88,7 @@ export const AuthContextProvider: FC<Prop> = ({children}) => {
                redirectPath = "/";
           }
           navigator(redirectPath);
+          localStorage.setItem('redirect_to', '')
       
       
      }

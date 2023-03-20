@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Container from "../../components/Container";
+import Container from "../../components/client/Container";
 import { registerSchema } from "../../schema/index";
 import { useFormik } from "formik";
 import { useContext } from "react";

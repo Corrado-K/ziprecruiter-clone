@@ -2,7 +2,7 @@ import { HiOutlineBuildingOffice2, HiOutlineBriefcase } from "react-icons/hi2"
 import { MdVerified } from "react-icons/md"
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const JobDetailsCard = () => {

@@ -6,7 +6,7 @@ import { AuthGuard } from "./AuthGuard";
 import { SearchPage} from '../pages/client/SearchPage.jsx'
 import { SearchResults } from "../pages/client/SearchResults";
 import JobDetailsPage from '../pages/client/JobDetailsPage';
-import UploadDocumentsModal from '../components/UploadDocumentsModal';
+import UploadDocumentsModal from '../components/client/UploadDocumentsModal';
 
 const Router = () => { 
      return useRoutes([

@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import JobDetailsCard from "../../components/JobDetailsCard"
+import JobDetailsCard from "../../components/client/JobDetailsCard"
 
 const JobDetailsPage = () => {
      return (

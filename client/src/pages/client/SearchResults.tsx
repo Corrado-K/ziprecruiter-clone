@@ -1,7 +1,7 @@
 import { HiArrowUp } from "react-icons/hi2"
-import Container from "../../components/Container"
-import JobResultCard from "../../components/JobResultCard"
-import JobSearchInput from "../../components/JobSearchInput"
+import Container from "../../components/client/Container"
+import JobResultCard from "../../components/client/JobResultCard"
+import JobSearchInput from "../../components/client/JobSearchInput"
 
 export const SearchResults = () => {
      return (

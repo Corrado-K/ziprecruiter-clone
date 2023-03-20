@@ -72,8 +72,11 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                id: user?.id,
                email: user?.email,
                fname: user?.fname,
-               lname: user?.lname
+               lname: user?.lname,
+               role: user?.role
           }
+          console.log(jwtTokenPayload);
+          
           // generate access token
           const accessToken = generateAccessToken(jwtTokenPayload)
           // generate and set refresh token

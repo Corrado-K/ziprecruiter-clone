@@ -9,6 +9,8 @@ export interface User {
 export interface IDecodeJWT {
      id: number;
      email: string;
+     fname: string;
+     lname: string;
      role: string;
      token_id: string;
 }

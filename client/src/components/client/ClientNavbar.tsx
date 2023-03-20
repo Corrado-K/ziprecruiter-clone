@@ -1,14 +1,19 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { toRem } from '../utils/toRem';
-import ZipRecruiterLogo from "../assets/ZipRecruiterLogo";
-import { Link } from "react-router-dom";
+import { AuthContext } from '../../context/AuthContext';
+import { toRem } from '../../utils/toRem';
+import ZipRecruiterLogo from "../../assets/ZipRecruiterLogo";
+import { Link, useNavigate } from 'react-router-dom';
 
 export const ClientNavbar = () => {
+
+     const navigator = useNavigate()
 
      const { isLoggedIn, logout } = useContext(AuthContext)
      const handleLogout = (e:any) => {
           logout()
+     }
+     const handleLogin = (e:any) => {
+          navigator('/login')
      }
 
      const navMenuItems = [{ name: "Jobs", path: '' }, { name: "My Applications", path: '#' }, { name: "Profile", path: '#' }];
@@ -33,9 +38,9 @@ export const ClientNavbar = () => {
                          isLoggedIn ? 
                               <span onClick={handleLogout} className={`ml-[60px] text-md hover:cursor-pointer hover:text-sky-700 text-[#277f6a]`}>Logout</span>
                          : 
-                              <Link to={'/login'}>
-                                   <span style={menuItemStyle} className='text-[#277f6a]'>Login</span>
-                              </Link>
+                              // <Link to={'/login'} >
+                                   <span onClick={handleLogin} style={menuItemStyle} className='text-[#277f6a]'>Login</span>
+                              // </Link>
                     }
                     
                </div>

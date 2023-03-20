@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import JobSearchInput from "../../components/JobSearchInput"
+import JobSearchInput from "../../components/client/JobSearchInput"
 
 
 export const SearchPage = () => {

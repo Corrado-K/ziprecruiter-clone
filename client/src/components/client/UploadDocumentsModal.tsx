@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { HiOutlineBuildingOffice2, HiOutlineXMark } from "react-icons/hi2";
-import ResumeImg from "../assets/resume.svg";
+import ResumeImg from "../../assets/resume.svg";
 
 const UploadDocumentsModal = () => {
      const [showModal, setShowModal] = useState(true);

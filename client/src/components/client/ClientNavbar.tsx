@@ -22,7 +22,7 @@ export const ClientNavbar = () => {
           <div style={navbarStyle} className="">
                <div style={logoStyle}>
                     <Link to={'/'}>
-                         <ZipRecruiterLogo />
+                         <ZipRecruiterLogo width={150} height={90} color={'#343e45'} />
                     </Link>
                </div>
 

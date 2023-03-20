@@ -1,5 +1,5 @@
 import { useRoutes } from "react-router-dom";
-import ClientHomeLayout from "../layout/ClientHomeLayout";
+import ClientLayout from "../layout/ClientLayout";
 import { LoginPage } from "../pages/auth/LoginPage";
 import { RegisterPage } from "../pages/auth/RegisterPage";
 import { AuthGuard } from "./AuthGuard";
@@ -7,12 +7,18 @@ import { SearchPage} from '../pages/client/SearchPage.jsx'
 import { SearchResults } from "../pages/client/SearchResults";
 import JobDetailsPage from '../pages/client/JobDetailsPage';
 import UploadDocumentsModal from '../components/client/UploadDocumentsModal';
+import AdminLayout from "../layout/AdminLayout";
+import { Dashboard } from "../pages/admin/Dashboard";
+import { ApplicantsPage } from "../pages/admin/ApplicantsPage";
+import { MyJobsPage } from "../pages/admin/MyJobsPage";
+import { AdminProfilePage } from "../pages/admin/AdminProfile";
+import { HelpPage } from "../pages/admin/HelpPage";
 
 const Router = () => { 
      return useRoutes([
           {
                path: '/',
-               element: <ClientHomeLayout />,
+               element: <ClientLayout />,
                children: [
                     { element: <SearchPage />, index: true},
                     { path: 'search-results/', element: <SearchResults />},
@@ -28,7 +34,7 @@ const Router = () => {
                element: <AuthGuard />,
                children: [
                     {
-                         element: <ClientHomeLayout />,
+                         element: <ClientLayout />,
                          path: '/',
                          children: [
                               { element: null, index:true },
@@ -40,6 +46,17 @@ const Router = () => {
                               },
                          ]
                     }
+               ]
+          },
+          {
+               path: '/admin',
+               element: <AdminLayout />,
+               children: [
+                    { element: <Dashboard />, index: true},
+                    { path: 'applicants', element: <ApplicantsPage />},
+                    { path: 'my-jobs', element: <MyJobsPage />},
+                    { path: 'profile', element: <AdminProfilePage />},
+                    { path: 'help', element: <HelpPage />},
                ]
           }
      ])

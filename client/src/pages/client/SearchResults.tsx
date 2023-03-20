@@ -1,3 +1,4 @@
+import { HiArrowUp } from "react-icons/hi2"
 import Container from "../../components/Container"
 import JobResultCard from "../../components/JobResultCard"
 import JobSearchInput from "../../components/JobSearchInput"
@@ -13,12 +14,17 @@ export const SearchResults = () => {
                          <p className="text-sm">3,017 WEB Developer Jobs</p>
                          <p className="text-sm">Jobs within 25 miles of Accra, AA</p>
                     </div>
-                    <div className="w-[30%] mt-5 space-y-2">
+                    <div className="w-[30%] mt-5 overflow-y-auto h-screen">
+                         <JobResultCard />
                          <JobResultCard />
                          <JobResultCard />
                     </div>
                </Container>
-               
+               <button className="fixed bottom-20 right-20 p-5 bg-[#277f6a] rounded-full text-white shadow-2xl drop-shadow-sm shadow-slate-500"
+                    onClick={() => {window.scrollTo({top: 0, left: 0, behavior: 'smooth'})}}
+               >
+                    <HiArrowUp />
+               </button>
           </div>
      )
 }

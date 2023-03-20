@@ -1,11 +1,11 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from 'express';
 import { comparePassword, hashPassword } from "../utils/util.password";
 import { PrismaClient } from "@prisma/client";
 import { generateAccessToken, generateRefreshToken, setRefreshToken } from '../utils/util.token';
 
 const prisma = new PrismaClient();
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: Request, res: Response, next: NextFunction) => {
      const { email, fname, lname, password } = req.body;
      const hashedPassword = await hashPassword(password);
 
@@ -44,13 +44,11 @@ export const register = async (req: Request, res: Response) => {
                status: 200
           });
      } catch (error) {
-          res.status(500).json({
-               error: error
-          });
+          next(error)
      }
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response, next: NextFunction) => {
      const { email, password } = req.body;
 
      try {
@@ -87,13 +85,11 @@ export const login = async (req: Request, res: Response) => {
                refreshToken: refreshToken
           });
      } catch (error) {
-          res.status(500).json({
-               error: error
-          });
+          next(error)
      }
 };
 
-export const deleteUserAccount = async (req: Request, res: Response) => {
+export const deleteUserAccount = async (req: Request, res: Response, next: NextFunction) => {
 
      const { email, password } = req.body
 
@@ -129,9 +125,8 @@ export const deleteUserAccount = async (req: Request, res: Response) => {
                payload: deleteUser
           })
      } catch (error) {
-          res.status(500).json({
-               error: error
-          })
+          next(error)
+
      }
 }
 

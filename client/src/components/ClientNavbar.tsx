@@ -1,10 +1,17 @@
-import React from "react";
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { toRem } from '../utils/toRem';
 import ZipRecruiterLogo from "../assets/ZipRecruiterLogo";
 import { Link } from "react-router-dom";
 
 export const ClientNavbar = () => {
-     const navMenuItems = [{ name: "Jobs" }, { name: "Salaries" }, { name: "Profile"} ];
+
+     const { isLoggedIn, logout } = useContext(AuthContext)
+     const handleLogout = (e:any) => {
+          logout()
+     }
+
+     const navMenuItems = [{ name: "Jobs", path: '' }, { name: "My Applications", path: '#' }, { name: "Profile", path: '#' }];
 
      return (
           <div style={navbarStyle} className="">
@@ -17,9 +24,20 @@ export const ClientNavbar = () => {
                <div style={menuStyle}>
                     {
                          navMenuItems.map((item, index) => (
-                              <span key={index} style={menuItemStyle}>{item.name}</span>
+                              <Link key={index} to={item.path}>
+                                   <span style={menuItemStyle}>{item.name}</span>
+                              </Link>
                          ))
                     }
+                    {
+                         isLoggedIn ? 
+                              <span onClick={handleLogout} className={`ml-[60px] text-md hover:cursor-pointer hover:text-sky-700 text-[#277f6a]`}>Logout</span>
+                         : 
+                              <Link to={'/login'}>
+                                   <span style={menuItemStyle} className='text-[#277f6a]'>Login</span>
+                              </Link>
+                    }
+                    
                </div>
           </div>
      );
@@ -42,10 +60,13 @@ const logoStyle = {
 }
 
 const menuStyle = {
-     margin: `auto 10% auto 0`
+     margin: `auto 10% auto 0`,
+
 }
 
 const menuItemStyle = {
      marginLeft: `${toRem(60)}`,
-     fontSize: `${toRem(16)}`
+     fontSize: `${toRem(16)}`,
+     color: '#000'
 }
+

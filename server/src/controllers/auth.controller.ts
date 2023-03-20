@@ -75,7 +75,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                lname: user?.lname,
                role: user?.role
           }
-          console.log(jwtTokenPayload);
+          // console.log(jwtTokenPayload);
           
           // generate access token
           const accessToken = generateAccessToken(jwtTokenPayload)

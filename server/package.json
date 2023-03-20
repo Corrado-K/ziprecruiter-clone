@@ -8,7 +8,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node-dev src/server.ts",
     "build": "npx tsc",
-    "prisma:migrate": "prisma migrate dev --skip-seed",
+    "prisma:migrate": "prisma db push",
     "prisma:format": "prisma format",
     "prisma:generate": "prisma generate",
     "prisma:generate:watch": "prisma generate --watch",

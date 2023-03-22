@@ -10,5 +10,11 @@ export const registerSchema = yup.object().shape({
      lname: yup.string(),
      email: yup.string().email(),
      password: yup.string(),
+})
 
+export const postSchema = yup.object().shape({
+     title: yup.string(),
+     description: yup.string(),
+     location: yup.string(),
+     experience: yup.string(),
 })

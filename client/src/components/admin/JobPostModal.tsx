@@ -2,22 +2,46 @@ import React, { useState, useRef } from "react";
 import { HiOutlineBuildingOffice2, HiOutlineXMark } from "react-icons/hi2";
 import ResumeImg from "../../assets/resume.svg";
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { AxiosError } from "axios";
+import { postSchema } from "../../schema";
+import { useAppDispatch } from "../../redux/store";
+import { addJobPost } from "../../redux/jobPostSlice";
+import axiosInstance from "../../utils/axios.utils";
 
 const JobPostModal = () => {
      const [showModal, setShowModal] = useState(true);
-
-
      const navigator = useNavigate()
+     const dispatch = useAppDispatch()
+
 
      const handleCloseModal = () => {
           navigator(-1)
           setShowModal(false)
      }
 
-     const handleSubmit = (e:any) => {
-          e.preventDefault()
-          
-     }
+
+     const formik = useFormik({
+          initialValues: {
+               title: "",
+               description: "",
+               location: "",
+               experience: ""
+          },
+          onSubmit:  async (values) => {
+               try {
+                    // await add(values.email, values.password);
+                    await dispatch(addJobPost({title: values.title, description: values.description, location: values.location, experience: values.experience}))
+                    console.log(values)
+                    console.log(axiosInstance.defaults.headers.common["Authorization"]);
+
+               } catch (error) {
+                    const { response } = error as AxiosError<{ message: string }>;
+               }
+          },
+          validationSchema: postSchema,
+     })
+     
      return (
           <>
                {showModal ? (
@@ -55,7 +79,7 @@ const JobPostModal = () => {
                                              
                                              <form
                                                   className="w-full flex flex-col items-center pb-5"
-                                                  // onSubmit={formik.handleSubmit}
+                                                  onSubmit={formik.handleSubmit}
                                              >
                                                   <div className="flex flex-col space-y-3 w-[90%]">
                                                        <input
@@ -63,34 +87,39 @@ const JobPostModal = () => {
                                                             className="w-full py-3 px-5 bg-transparent border"
                                                             placeholder="Title"
                                                             name="title"
-                                                            // onChange={formik.handleChange}
-                                                            // onBlur={formik.handleBlur}
-                                                            // value={formik.values.email}
+                                                            onChange={formik.handleChange}
+                                                            onBlur={formik.handleBlur}
+                                                            value={formik.values.title}
                                                        />
-                                                       <textarea className="w-full py-3 px-5 bg-transparent border" placeholder="Description"></textarea>
+                                                       <textarea className="w-full py-3 px-5 bg-transparent border" placeholder="Description"
+                                                            name="description"
+                                                            onChange={formik.handleChange}
+                                                            onBlur={formik.handleBlur}
+                                                            value={formik.values.description}
+                                                       ></textarea>
                                                        <input
                                                             type="text"
                                                             className="w-full py-3 px-5 bg-transparent border"
                                                             placeholder="Location"
                                                             name="location"
-                                                            // onChange={formik.handleChange}
-                                                            // onBlur={formik.handleBlur}
-                                                            // value={formik.values.email}
+                                                            onChange={formik.handleChange}
+                                                            onBlur={formik.handleBlur}
+                                                            value={formik.values.location}
                                                        />
                                                        <input
                                                             type="text"
                                                             className="w-full py-3 px-5 bg-transparent border"
                                                             placeholder="Experience"
                                                             name="experience"
-                                                            // onChange={formik.handleChange}
-                                                            // onBlur={formik.handleBlur}
-                                                            // value={formik.values.email}
+                                                            onChange={formik.handleChange}
+                                                            onBlur={formik.handleBlur}
+                                                            value={formik.values.experience}
                                                        />
                                                        <br />
                                                        <br />
                                                        
                                                        <button
-                                                            onClick={handleSubmit}
+                                                            type="submit"
                                                             className="w-[50%] mx-auto py-3 mt-5 mb-5 bg-[#277f6a] text-white font-semibold rounded-full"
                                                        >
                                                             Submit

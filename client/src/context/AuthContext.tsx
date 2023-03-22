@@ -85,7 +85,7 @@ export const AuthContextProvider: FC<Prop> = ({children}) => {
                     redirectPath += params;
                }
           } else {
-               redirectPath = "/";
+               redirectPath = "/admin";
           }
           navigator(redirectPath);
           localStorage.setItem('redirect_to', '')

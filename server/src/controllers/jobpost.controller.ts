@@ -101,13 +101,6 @@ export const addJobPost = async (
                },
           });
 
-          // if (!user) {
-          //      res.send({
-          //           message: `User not a found`,
-          //           status: 403,
-          //      })
-          //      return console.log("Not user");
-          // }
 
           if (user && user.role === "RECRUITER") {
                const jobpost = await prisma.jobPost.create({

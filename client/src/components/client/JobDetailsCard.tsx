@@ -1,7 +1,7 @@
 import { HiOutlineBuildingOffice2, HiOutlineBriefcase } from "react-icons/hi2"
 import { MdVerified } from "react-icons/md"
-import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 
@@ -9,6 +9,14 @@ const JobDetailsCard = () => {
 
      const { isLoggedIn } = useContext(AuthContext)
      const navigator = useNavigate()
+
+     const { jid } = useParams()
+     console.log(jid);
+     
+     useEffect(() => {
+          // get job by id
+          // use the returned value to populate the card
+     }, []);
 
      const handleClick = (e:any) => {
           e.preventDefault()
@@ -82,30 +90,11 @@ const JobDetailsCard = () => {
                <div className="border-b mt-10"></div>
 
 
-               { isLoggedIn ? 
                     <div className="flex flex-col mx-[20%] my-5">
                          <button type="submit" onClick={handleClick} className="p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
                               Apply Now
                          </button>
-                    </div>
-                    
-               : 
-                    <form className="flex flex-col mx-[20%] my-5">
-                         <input
-                              type="email"
-                              className="py-3 px-5 bg-transparent border"
-                              placeholder="Enter your email"
-                              name="email"
-                              // onChange={formik.handleChange}
-                              // onBlur={formik.handleBlur}
-                              // value={formik.values.email}
-                         />
-                         <button type="submit" onClick={handleClick} className="p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
-                              Apply Now
-                         </button>
-                    </form>
-               }
-               
+                    </div>               
 
                <p className="text-center text-xs">By clicking the button above, I agree to the ZipRecruiter Terms of Use and acknowledge I have read the Privacy Policy, and agree to receive email job alerts.</p>
               

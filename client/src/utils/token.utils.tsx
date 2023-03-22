@@ -24,6 +24,7 @@ export const getRefreshToken = () => {
      }
      return refreshToken;
 }
+
 export const setUserData = (accessToken: string, refreshToken: string) => {
 
      const jwtData = jwtDecode(accessToken) as IDecodeJWT

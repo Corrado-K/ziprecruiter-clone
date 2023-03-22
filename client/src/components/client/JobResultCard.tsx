@@ -1,10 +1,10 @@
 import { HiOutlineBriefcase, HiOutlineBuildingOffice2} from 'react-icons/hi2';
 import { MdVerified } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-const JobResultCard = () => {
+const JobResultCard = ({id, r_id, title, description, location, experience}:{id:string, r_id:string, title:string, description:string, location:string, experience:string}) => {
      return (
           <>
-          <Link to={'/jobs/1/1'}>
+          <Link to={`/jobs/${r_id}/${id}`}>
                <div className="border p-5 rounded-xl text-black mb-2 bg-white shadow-md">
 
                     <div className="pb-10">
@@ -16,10 +16,10 @@ const JobResultCard = () => {
                     {/* Job icon */}
                     <HiOutlineBuildingOffice2 color='#b2b2b28c' size={35} />
 
-                    <h3 className="font-semibold mb-3">Job Name</h3>
+                    <h3 className="font-semibold mb-3">{title}</h3>
 
                     <p className="text-[13px]">Recruiter Name</p>
-                    <p className="text-[13px]">Job location</p>
+                    <p className="text-[13px]">{location}</p>
 
                     <span className='flex items-center text-xs space-x-1 p-1 bg-[#b2b2b28c] w-fit rounded-md my-5'>
                          <HiOutlineBriefcase /> 
@@ -28,10 +28,7 @@ const JobResultCard = () => {
 
 
                     <p className="text-xs">
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
+                         {description}
                     </p>
                </div>
           </Link>

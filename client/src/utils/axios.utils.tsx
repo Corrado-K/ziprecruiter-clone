@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import jwtDecode from "jwt-decode";
 import { SERVER_URL } from "../utils/constants";
-import { clearUserData, getRefreshToken, setUserData } from "../utils/token.utils";
+import { clearUserData, getAccessToken, getRefreshToken, setUserData } from "../utils/token.utils";
 import { LoginResponse } from "../interface/index";
 
 const axiosInstance = axios.create({
@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
      },
 });
 
-// automatically refreshing expired access tokens before sending requests
+// refresh expired access tokens before sending requests
 axiosInstance.interceptors.request.use(async (config) => {
      if (config.headers?.Authorization) {
           const accessToken = String(config.headers.Authorization).split(

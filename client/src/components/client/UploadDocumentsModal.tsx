@@ -13,19 +13,13 @@ const UploadDocumentsModal = () => {
      const handleCloseModal = () => {
           navigator(-1)
           setShowModal(false)
-
      }
-
-     // const handleRemoveId = () => {
-     //      const currentPath = navigator.location.pathname;
-     //      const newPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
-     //      navigate.replace(newPath);
-     //    }
 
      const handleClick = (e:any) => {
           e.preventDefault()
           inputRef.current?.click();
      };
+
      const handleFileChange = (e:any) => {
           const fileObj = e.target.files && e.target.files[0];
           if (!fileObj) {
@@ -34,6 +28,7 @@ const UploadDocumentsModal = () => {
           e.target.value = null // reset file input
           setFile(fileObj)
      };
+     
      const handleSubmit = (e:any) => {
           e.preventDefault()
           

@@ -6,15 +6,22 @@ import axiosInstance from "../utils/axios.utils";
 
 const HostGuard = () => {
      const { isLoggedIn, role } = useContext(AuthContext);
-     if (!isLoggedIn || role !== "host") {
+     if (!isLoggedIn || role !== "RECRUITER") {
           return <Navigate to="/login" replace />;
      } else {
           const accessToken = getAccessToken();
-          if (!accessToken) {
+          if (accessToken) {
                axiosInstance.defaults.headers.common[
                     "Authorization"
                ] = `Bearer ${accessToken}`;
           }
+          // axiosInstance.defaults.headers.common[
+          //      "Authorization"
+          // ] = `Bearer ${accessToken}`;
+          // console.log(axiosInstance.defaults.headers.common[
+          //      "Authorization"
+          // ]);
+          
      }
      return <Outlet />;
 };

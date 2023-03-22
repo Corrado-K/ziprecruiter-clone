@@ -15,6 +15,7 @@ import { AdminProfilePage } from "../pages/admin/AdminProfile";
 import { HelpPage } from "../pages/admin/HelpPage";
 import JobPostModal from "../components/admin/JobPostModal";
 import UpdateJobPostModal from "../components/admin/UpdateJobPostModal";
+import RoleGuard from "./RoleGuard";
 
 const Router = () => { 
      return useRoutes([
@@ -52,18 +53,23 @@ const Router = () => {
           },
           {
                path: '/admin',
-               element: <AdminLayout />,
-               children: [
-                    { element: <Dashboard />, index: true},
-                    { path: 'applicants', element: <ApplicantsPage />},
-                    { path: 'my-jobs', element: <MyJobsPage />,
+               element: <RoleGuard />,
+               children:[ 
+                    {
+                         element: <AdminLayout />,
                          children: [
-                              { path: ":add-post", element: <JobPostModal /> },
-                              { path: ":id", element: <UpdateJobPostModal /> },
+                              { element: <Dashboard />, index: true},
+                              { path: 'applicants', element: <ApplicantsPage />},
+                              { path: 'my-jobs', element: <MyJobsPage />,
+                                   children: [
+                                        { path: ":add-post", element: <JobPostModal /> },
+                                        { path: ":id", element: <UpdateJobPostModal /> },
+                                   ]
+                              },
+                              { path: 'profile', element: <AdminProfilePage />},
+                              { path: 'help', element: <HelpPage />},
                          ]
-                    },
-                    { path: 'profile', element: <AdminProfilePage />},
-                    { path: 'help', element: <HelpPage />},
+                     }
                ]
           }
      ])

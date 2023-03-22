@@ -20,3 +20,14 @@ export interface LoginResponse {
      accessToken: string;
      refreshToken: string;
 }
+
+export interface IJobPost {
+     id: string;
+     title: string;
+     description: string;
+     location: string;
+     experience: string;
+     recruiter_id: string;
+     createdAt: string;
+     updatedAt: string;
+}

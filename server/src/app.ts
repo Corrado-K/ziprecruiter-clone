@@ -30,7 +30,7 @@ app.use(router)
 // Error handler
 //  Redo error handling middleware : https://www.codeconcisely.com/posts/how-to-handle-errors-in-express-with-typescript/
 app.use(errorHandler)
-app.use(NotFoundHandler)
+// app.use(NotFoundHandler)
 
 app.get('/health', (req: Request, res: Response) => {
      res.send('API working')

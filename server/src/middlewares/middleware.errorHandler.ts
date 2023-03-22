@@ -5,5 +5,7 @@ export const errorHandler = (err: Error, req: Request, res: Response, next: Next
      res.status(500).json({
           message: err.message ?? "Error"
      })
+     console.error(err);
+     
      next()
 }

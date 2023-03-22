@@ -5,7 +5,7 @@ const JobResultCard = () => {
      return (
           <>
           <Link to={'/jobs/1/1'}>
-               <div className="border p-5 rounded-xl text-black mb-2">
+               <div className="border p-5 rounded-xl text-black mb-2 bg-white shadow-md">
 
                     <div className="pb-10">
                          {/* <Link to={'/login'}>

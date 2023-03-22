@@ -13,6 +13,8 @@ import { ApplicantsPage } from "../pages/admin/ApplicantsPage";
 import { MyJobsPage } from "../pages/admin/MyJobsPage";
 import { AdminProfilePage } from "../pages/admin/AdminProfile";
 import { HelpPage } from "../pages/admin/HelpPage";
+import JobPostModal from "../components/admin/JobPostModal";
+import UpdateJobPostModal from "../components/admin/UpdateJobPostModal";
 
 const Router = () => { 
      return useRoutes([
@@ -54,7 +56,12 @@ const Router = () => {
                children: [
                     { element: <Dashboard />, index: true},
                     { path: 'applicants', element: <ApplicantsPage />},
-                    { path: 'my-jobs', element: <MyJobsPage />},
+                    { path: 'my-jobs', element: <MyJobsPage />,
+                         children: [
+                              { path: ":add-post", element: <JobPostModal /> },
+                              { path: ":id", element: <UpdateJobPostModal /> },
+                         ]
+                    },
                     { path: 'profile', element: <AdminProfilePage />},
                     { path: 'help', element: <HelpPage />},
                ]

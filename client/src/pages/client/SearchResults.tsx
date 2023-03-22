@@ -14,7 +14,7 @@ export const SearchResults = () => {
                          <p className="text-sm">3,017 WEB Developer Jobs</p>
                          <p className="text-sm">Jobs within 25 miles of Accra, AA</p>
                     </div>
-                    <div className="w-[30%] mt-5 overflow-y-auto h-screen">
+                    <div className="w-[30%] mt-5">
                          <JobResultCard />
                          <JobResultCard />
                          <JobResultCard />

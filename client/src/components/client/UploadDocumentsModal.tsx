@@ -1,11 +1,26 @@
 import React, { useState, useRef } from "react";
 import { HiOutlineBuildingOffice2, HiOutlineXMark } from "react-icons/hi2";
 import ResumeImg from "../../assets/resume.svg";
+import { useNavigate } from 'react-router-dom';
 
 const UploadDocumentsModal = () => {
      const [showModal, setShowModal] = useState(true);
      const [file, setFile] = useState<File>()
      const inputRef = useRef<HTMLInputElement | null>(null)
+
+     const navigator = useNavigate()
+
+     const handleCloseModal = () => {
+          navigator(-1)
+          setShowModal(false)
+
+     }
+
+     // const handleRemoveId = () => {
+     //      const currentPath = navigator.location.pathname;
+     //      const newPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
+     //      navigate.replace(newPath);
+     //    }
 
      const handleClick = (e:any) => {
           e.preventDefault()
@@ -49,9 +64,7 @@ const UploadDocumentsModal = () => {
                                              </div>
                                              <button
                                                   className="bg-transparent border-0 text-black float-right"
-                                                  onClick={() =>
-                                                       setShowModal(false)
-                                                  }
+                                                  onClick={handleCloseModal}
                                              >
                                                   <span className="text-black opacity-7 text-xl block">
                                                        <HiOutlineXMark />

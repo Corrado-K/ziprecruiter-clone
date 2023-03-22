@@ -1,6 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const JobPostTable = () => {
+
+     let id=10;
+     const navigator = useNavigate()
+
+
+     const handleEditClick = () => {
+          console.log(id);
+          navigator(':abc123')
+     }
      return (
           <div className='bg-gray-200 p-4 rounded-lg'>
                <div className="flex items-center">
@@ -27,7 +37,7 @@ const JobPostTable = () => {
                                    <td className='p-3 border border-gray-300 text-sm'>Experience</td>
                                    <td className='p-3 border border-gray-300 text-sm'>Applications Received</td>
                                    <td className='p-3 border border-gray-300 text-sm text-right'>
-                                        <span className='mr-3 text-sky-400 underline cursor-pointer'>Edit</span>                                   
+                                        <span className='mr-3 text-sky-400 underline cursor-pointer' onClick={handleEditClick}>Edit</span>                                   
                                         <span className='mr-3 text-red-400 underline cursor-pointer'>Delete</span>                                   
                                    </td>
                               </tr>

@@ -1,13 +1,26 @@
 import React from 'react'
 import JobPostTable from '../../components/admin/JobPostTable'
 import { useNavigate, Outlet } from 'react-router-dom';
+import { useState } from 'react';
+import { useAppDispatch } from '../../redux/store';
 
 export const MyJobsPage = () => {
 
      const navigator = useNavigate()
+     const dispatch = useAppDispatch()
+     const [myjobs, setMyjobs] = useState();
+
+     const getMyJobPosts = async () => {
+          try {
+               // await dispatch()
+          } catch (error) {
+               console.error(error);
+          }
+     }
+     
 
      const handleClick = () => {
-          navigator(':add-post')
+          navigator('add-post')
      }
      return (
           <div className="w-full flex flex-col">

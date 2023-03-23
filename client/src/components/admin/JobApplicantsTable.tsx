@@ -1,6 +1,8 @@
 import React from 'react'
 
 const JobApplicantsTable = () => {
+
+
      return (
           <div className='bg-gray-200 p-4 rounded-lg'>
                <div className="flex items-center">

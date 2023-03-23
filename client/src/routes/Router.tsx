@@ -41,9 +41,9 @@ const Router = () => {
                          path: '/',
                          children: [
                               { element: null, index:true },
-                              { path: 'jobs/:cid/:jid', element: <JobDetailsPage />,
+                              { path: 'jobs/:cid/:jid/', element: <JobDetailsPage />,
                                    children: [
-                                        { path: ":1", element: <UploadDocumentsModal /> },
+                                        { path: "upload", element: <UploadDocumentsModal /> },
                                         // { path: ":jid", element: <UploadDocumentsModal /> },
                                    ]
                               },
@@ -60,9 +60,9 @@ const Router = () => {
                          children: [
                               { element: <Dashboard />, index: true},
                               { path: 'applicants', element: <ApplicantsPage />},
-                              { path: 'my-jobs', element: <MyJobsPage />,
+                              { path: 'my-jobs/', element: <MyJobsPage />,
                                    children: [
-                                        { path: ":add-post", element: <JobPostModal /> },
+                                        { path: "add-post", element: <JobPostModal /> },
                                         { path: ":id", element: <UpdateJobPostModal /> },
                                    ]
                               },

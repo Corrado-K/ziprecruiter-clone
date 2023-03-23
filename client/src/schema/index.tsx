@@ -1,5 +1,10 @@
 import * as yup from "yup";
 
+export const searchSchema = yup.object().shape({
+     keywords: yup.string().required("A keyword is required"),
+     location: yup.string()
+})
+
 export const loginSchema = yup.object().shape({
      email: yup.string().email(),
      password: yup.string()

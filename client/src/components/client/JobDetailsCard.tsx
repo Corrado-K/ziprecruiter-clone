@@ -5,19 +5,11 @@ import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 
-const JobDetailsCard = () => {
+const JobDetailsCard = ({id, r_id, title, description, location, experience}:{id:string, r_id:string, title:string, description:string, location:string, experience:string}) => {
 
      const { isLoggedIn } = useContext(AuthContext)
      const navigator = useNavigate()
-
-     const { jid } = useParams()
-     console.log(jid);
-     
-     useEffect(() => {
-          // get job by id
-          // use the returned value to populate the card
-     }, []);
-
+    
      const handleClick = (e:any) => {
           e.preventDefault()
           if (!isLoggedIn) {
@@ -25,7 +17,7 @@ const JobDetailsCard = () => {
                return navigator('/login')  
           }
 
-          navigator(':1')
+          navigator('upload')
 
           // Send user email to the job application api
           // the api takes email and checks if the use
@@ -39,50 +31,19 @@ const JobDetailsCard = () => {
                {/* Job icon */}
                <HiOutlineBuildingOffice2 color='#b2b2b28c' size={35} />
 
-               <h3 className="text-lg font-semibold mb-3">Job Name</h3>
+               <h3 className="text-lg font-semibold mb-3 capitalize">{title}</h3>
 
                <p>Recruiter Name</p>
-               <p>Job location</p>
+               <p>{location}</p>
 
                <span className='flex items-center text-xs space-x-1 p-1 bg-[#b2b2b28c] w-fit rounded-md my-5'>
                     <HiOutlineBriefcase /> 
-                    <span>Work type</span> 
+                    <span>{experience}</span> 
                </span>
 
-               <div className={`overflow-y-auto ${isLoggedIn ? 'h-72': 'h-40'} `}>
+               <div className={`overflow-y-auto h-auto max-h-72 `}>
                     <p className="text-sm shadow-inner shadow-gray-300 rounded-lg p-4">
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
-                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                         Cupiditate ipsam similique temporibus dolore fuga repellat 
-                         porro esse doloribus officia quaerat iste cumque, aperiam laboriosam,  
-                         earum harum repudiandae? Itaque, minus vel!
+                         {description}
                     </p>     
                </div>
                {/* <div className="blur-sm -mt-4 h-5 p-2 w-[90%] bg-white"></div>

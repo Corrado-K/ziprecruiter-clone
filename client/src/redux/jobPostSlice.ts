@@ -36,6 +36,16 @@ const jobPostSlice = createSlice({
                     state.status = 'failed'
                })
 
+               .addCase(fetchMyJobPosts.fulfilled, (state,action) => {
+                    // @ts-ignore
+                    state.jobPosts = action.payload
+                    state.status = 'loaded'
+               })
+               .addCase(fetchMyJobPosts.rejected, (state,action) => {
+                    state.error = action.error.message ?? 'Error while searching your job post'
+                    state.status = 'failed'
+               })
+
                .addCase(fetchJobPostById.fulfilled, (state,action) => {
                     // @ts-ignore
                     state.jobPosts = action.payload
@@ -76,6 +86,7 @@ const jobPostSlice = createSlice({
                .addMatcher(
                     isAnyOf(
                          searchJobPosts.pending,
+                         fetchMyJobPosts.pending,
                          fetchJobPostById.pending,
                          addJobPost.pending,
                          updateJobPost.pending,
@@ -104,7 +115,14 @@ export const searchJobPosts = createAsyncThunk('searchJobPosts', async (obj: { k
      return data
 })
 
-export const fetchJobPostById = createAsyncThunk('fetchJobPostById', async (id: string) => {
+export const fetchMyJobPosts = createAsyncThunk('fetchMyJobPostById', async (id: string|undefined) => {
+     const { data } = await axiosInstance<IJobPost>({
+          method: 'GET', url: `/posts/${id}`
+     })
+     return data
+})
+
+export const fetchJobPostById = createAsyncThunk('fetchJobPostById', async (id: string|undefined) => {
      const { data } = await axiosInstance<IJobPost>({
           method: 'GET', url: `/posts/${id}`
      })
@@ -118,16 +136,16 @@ export const addJobPost = createAsyncThunk('addJobPost', async (obj: { title: st
      return data
 })
 
-export const updateJobPost = createAsyncThunk('updateJobPost', async (id: string) => {
+export const updateJobPost = createAsyncThunk('updateJobPost', async (obj: { id:string, title: string, description: string, location: string, experience:string }) => {
      const { data } = await axiosInstance<IJobPost>({
-          method: 'PUT', url: `/posts${id}`
+          method: 'PUT', url: `/posts/${obj.id}`, data: { title: obj.title, description: obj.description, location: obj.location, experience: obj.experience  }
      })
      return data
 })
 
 export const deleteJobPost = createAsyncThunk('deleteJobPost', async (id: string) => {
      const { data } = await axiosInstance<IJobPost>({
-          method: 'DELETE', url: `/posts${id}`
+          method: 'DELETE', url: `/posts/${id}`
      })
      return data
 })

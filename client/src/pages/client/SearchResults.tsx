@@ -10,7 +10,6 @@ export const SearchResults = () => {
 
      const [searchResults, setSearchResults] = useState<any[]>([]);
 
-     // @ts-ignore
      const results: any | null = useAppSelector(selectJobPosts)
 
      useEffect(() => {

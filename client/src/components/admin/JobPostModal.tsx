@@ -32,9 +32,8 @@ const JobPostModal = () => {
                try {
                     // await add(values.email, values.password);
                     await dispatch(addJobPost({title: values.title, description: values.description, location: values.location, experience: values.experience}))
-                    console.log(values)
-                    console.log(axiosInstance.defaults.headers.common["Authorization"]);
-
+                    // Add sweet alert for success
+                    navigator(-1)
                } catch (error) {
                     const { response } = error as AxiosError<{ message: string }>;
                }

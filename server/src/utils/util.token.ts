@@ -14,7 +14,7 @@ interface IUserIDPayload extends JwtPayload {
 
 export const generateAccessToken = (payload: any) => {
      return jwt.sign(payload, ACCESS_TOKEN, {
-          expiresIn: '15m'
+          expiresIn: '30m'
      })
 }
 

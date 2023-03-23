@@ -4,6 +4,7 @@ import { HiMagnifyingGlass } from "react-icons/hi2";
 import { searchJobPosts } from '../../redux/jobPostSlice';
 import { useAppDispatch } from '../../redux/store';
 import { useFormik } from 'formik';
+import { searchSchema } from '../../schema';
 
 const JobSearchInput = () => {
 
@@ -23,17 +24,20 @@ const JobSearchInput = () => {
                     console.error(error);
                }
                navigator('/search-results')
-          }
+          },
+          validationSchema: searchSchema,
      })
 
      return (
-          <div className="flex space-x-2">
+          <div className="space-x-2">
                <form className='flex space-x-2' onSubmit={formik.handleSubmit}>
                     <div className="relative mt-1">
                          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                               <HiMagnifyingGlass className="w-5 h-5 text-gray-500" />
                          </div>
-                         <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-96 pl-10 p-4" placeholder="Search title or keyword"
+                         <input type="text" className={`bg-gray-50 border  text-gray-900 text-sm rounded-md focus:ring-blue-500 focus:border-blue-500 block w-96 pl-10 p-4
+                              ${ formik.touched && formik.errors.keywords ? 'border-red-500': 'border-gray-300'}
+                         `} placeholder="Search title or keyword"
                               name="keywords"
                               onChange={formik.handleChange}
                               onBlur={formik.handleBlur}
@@ -53,6 +57,7 @@ const JobSearchInput = () => {
                     </div>
                     <button type='submit' className="py-4 px-10 bg-[#1a7460] text-white rounded-full">Search Jobs</button>
                </form>
+               <p className='text-red-500 text-sm'>{formik.errors.keywords}</p>
               </div>
      )
 }

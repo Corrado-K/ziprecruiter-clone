@@ -22,6 +22,25 @@ export const getAllJobPosts = async (
      }
 };
 
+// get all job posts
+export const getMyJobPosts = async (
+     req: Request,
+     res: Response,
+     next: NextFunction
+) => {
+     try {
+          const posts = await prisma.jobPost.findMany();
+
+          res.send({
+               message: "All Posts",
+               status: 200,
+               payload: posts,
+          });
+     } catch (error) {
+          next(error);
+     }
+};
+
 // get job post by id
 export const getJobPostById = async (
      req: Request,
@@ -31,7 +50,7 @@ export const getJobPostById = async (
      try {
           const post = await prisma.jobPost.findUniqueOrThrow({
                where: {
-                    id: req.params.id,
+                    id: req.params.post_id,
                },
           });
           res.send({
@@ -143,7 +162,7 @@ export const updateJobPost = async (
                include: { recruiter: true },
                where: {
                     // ... provide filter here
-                    id: req.params.id,
+                    id: req.params.post_id,
                     recruiter: {
                          id: res.locals.user?.id,
                     },
@@ -159,7 +178,7 @@ export const updateJobPost = async (
           if (isCreator && isCreator.recruiter.role === "RECRUITER") {
                const jobpost = await prisma.jobPost.update({
                     where: {
-                         id: req.params.id,
+                         id: req.params.post_id,
                     },
                     data: {
                          title: title,
@@ -197,7 +216,7 @@ export const deleteJobPost = async (
                include: { recruiter: true },
                where: {
                     // ... provide filter here
-                    id: req.params.id,
+                    id: req.params.post_id,
                     recruiter_id: res.locals.user?.id,
                },
           });
@@ -211,7 +230,7 @@ export const deleteJobPost = async (
           if (isCreator && isCreator.recruiter.role === "RECRUITER") {
                await prisma.jobPost.delete({
                     where: {
-                         id: req.params.id,
+                         id: req.params.post_id,
                     },
                });
 

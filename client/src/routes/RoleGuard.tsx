@@ -15,12 +15,6 @@ const HostGuard = () => {
                     "Authorization"
                ] = `Bearer ${accessToken}`;
           }
-          // axiosInstance.defaults.headers.common[
-          //      "Authorization"
-          // ] = `Bearer ${accessToken}`;
-          // console.log(axiosInstance.defaults.headers.common[
-          //      "Authorization"
-          // ]);
           
      }
      return <Outlet />;

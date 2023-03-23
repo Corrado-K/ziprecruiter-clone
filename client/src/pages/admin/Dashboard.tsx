@@ -6,7 +6,7 @@ export const Dashboard = () => {
           <div className="w-full flex flex-col">
                <div className='p-10'>
                     <h1 className='mb-10'>Dashboard</h1>
-                    <div className='grid grid-cols-4 gap-16 '>
+                    <div className='grid grid-cols-4 gap-8 '>
                          <DashboardCards />
                          <DashboardCards />
                          <DashboardCards />

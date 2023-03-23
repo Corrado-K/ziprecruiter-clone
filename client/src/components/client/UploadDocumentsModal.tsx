@@ -13,13 +13,12 @@ const UploadDocumentsModal = () => {
      const handleCloseModal = () => {
           navigator(-1)
           setShowModal(false)
-     }
 
+     }
      const handleClick = (e:any) => {
           e.preventDefault()
           inputRef.current?.click();
      };
-
      const handleFileChange = (e:any) => {
           const fileObj = e.target.files && e.target.files[0];
           if (!fileObj) {
@@ -28,11 +27,14 @@ const UploadDocumentsModal = () => {
           e.target.value = null // reset file input
           setFile(fileObj)
      };
-     
      const handleSubmit = (e:any) => {
           e.preventDefault()
-          
+          console.log(file);
+          // use upload application post request here
+          // get the user id from local storage
+          // get job post id from url param
      }
+
      return (
           <>
                {showModal ? (

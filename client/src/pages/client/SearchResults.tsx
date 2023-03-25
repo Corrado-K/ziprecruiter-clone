@@ -2,23 +2,49 @@ import { HiArrowUp } from "react-icons/hi2"
 import Container from "../../components/client/Container"
 import JobResultCard from "../../components/client/JobResultCard"
 import JobSearchInput from "../../components/client/JobSearchInput"
-import { useAppSelector } from "../../redux/store"
-import { selectJobPosts } from "../../redux/jobPostSlice"
+import { useAppSelector, useAppDispatch } from '../../redux/store';
+import { searchJobPosts, selectJobPosts } from "../../redux/jobPostSlice"
 import { useEffect, useState } from "react"
 
 export const SearchResults = () => {
 
      const [searchResults, setSearchResults] = useState<any[]>([]);
+     const dispatch =  useAppDispatch()
+
+     const search = new URLSearchParams(window.location.search)
+     const keywords = search.get('keywords')
+     const location = search.get('location')
+     
 
      const results: any | null = useAppSelector(selectJobPosts)
 
-     useEffect(() => {
-          setSearchResults(results?.payload)
-          console.log(results?.payload);
+
+
+     useEffect(() => {  
+
+          const storedResults = localStorage.getItem('searchResults');
+          if (storedResults) {
+               setSearchResults(JSON.parse(storedResults));
+          }
           
      }, [results?.payload]);
 
+     useEffect(() => {
+          const searchQuery = async(keywords:string|null, location:string|null) => {
+               try {
+                    const query = await dispatch(searchJobPosts({keywords:keywords||'', location: location||''}))
+                    // @ts-ignore
+                    setSearchResults(query.payload?.payload)
 
+               } catch (error) {
+                    console.error(error);
+               }
+          }
+          searchQuery(keywords, location)
+     }, [keywords, location]);
+
+     // console.log(results);
+     
      return (
           <div className="w-full flex flex-col justify-center">
                <Container>

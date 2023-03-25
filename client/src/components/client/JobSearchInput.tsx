@@ -19,11 +19,13 @@ const JobSearchInput = () => {
           },
           onSubmit: async (values) => {
                try {
-                    await dispatch(searchJobPosts({keywords:values.keywords, location: values.location}))
+                    const data = await dispatch(searchJobPosts({keywords:values.keywords, location: values.location}))
+                    // @ts-ignore
+                    localStorage.setItem('searchResults', JSON.stringify(data.payload?.payload));
                } catch (error) {
                     console.error(error);
                }
-               navigator('/search-results')
+               navigator(`/search-results?keywords=${values.keywords}&location=${values.location}`)
           },
           validationSchema: searchSchema,
      })

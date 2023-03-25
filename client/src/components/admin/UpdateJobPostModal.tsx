@@ -22,6 +22,7 @@ const UpdateJobPostModal = () => {
      const [jobDetails, setJobDetails]= useState<postValues>()
      const navigator = useNavigate()
      const dispatch = useAppDispatch()
+     
 
      const {id} = useParams()
 

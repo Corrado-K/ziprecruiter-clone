@@ -22,17 +22,21 @@ export const getAllJobPosts = async (
      }
 };
 
-// get all job posts
+// get my job posts
 export const getMyJobPosts = async (
      req: Request,
      res: Response,
      next: NextFunction
 ) => {
      try {
-          const posts = await prisma.jobPost.findMany();
+          const posts = await prisma.jobPost.findMany({
+               where: {
+                    recruiter_id: res.locals?.id
+               }
+          });
 
           res.send({
-               message: "All Posts",
+               message: "All My Posts",
                status: 200,
                payload: posts,
           });
@@ -69,7 +73,7 @@ export const getJobPostBySearch = async (
      res: Response,
      next: NextFunction
 ) => {
-     const { keywords, location } = req.body;
+     const { keywords, location } = req.query;
 
      let keyword_split = String(keywords).split(" ");
      console.log(keyword_split);

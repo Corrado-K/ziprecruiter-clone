@@ -27,7 +27,7 @@ const Sidebar = () => {
      ]
 
      return ( 
-          <div className="h-full flex flex-col justify-between w-[20%] bg-[#1a7460] rounded-r-[10px] sticky">
+          <div className="h-full flex flex-col justify-between w-full bg-[#1a7460] rounded-r-[10px] sticky">
                <div className="flex flex-col">
                     <div className='w-full flex justify-center mt-10'>
                          <Link to={'/'}>

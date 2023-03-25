@@ -8,8 +8,12 @@ const AdminLayout = () => {
           <> 
                <div className="w-screen h-screen flex">
                     {/* Sidebar */}
-                    <Sidebar />
-                    <Outlet />
+                    <div className="w-[25%] sticky">
+                         <Sidebar />
+                    </div>
+                    <div className="w-full overflow-y-auto">
+                         <Outlet /> 
+                    </div>
                </div>
 
           </>

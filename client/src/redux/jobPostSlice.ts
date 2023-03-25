@@ -110,14 +110,14 @@ export const selectJobPostsError = (state: RootState) => state.jobPost.error
 
 export const searchJobPosts = createAsyncThunk('searchJobPosts', async (obj: { keywords: string, location: string }) => {
      const { data } = await axiosInstance<IJobPost>({
-          method: 'POST', url: '/jobsearch', data: { keywords: obj.keywords, location: obj.location}
+          method: 'GET', url: `/jobsearch?keywords=${obj.keywords}&location=${obj.location}`
      })
      return data
 })
 
-export const fetchMyJobPosts = createAsyncThunk('fetchMyJobPostById', async (id: string|undefined) => {
+export const fetchMyJobPosts = createAsyncThunk('fetchMyJobPosts', async (id: string|undefined) => {
      const { data } = await axiosInstance<IJobPost>({
-          method: 'GET', url: `/posts/${id}`
+          method: 'GET', url: `/posts/myposts`
      })
      return data
 })

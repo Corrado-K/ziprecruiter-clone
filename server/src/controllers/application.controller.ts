@@ -3,11 +3,62 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-// get all applications
-export const getAllApplicationsByRecruiter =  async () => {}
+// get all applications received
+export const getAllApplicationsForRecruiter =  async (
+     req: Request,
+     res: Response,
+     next: NextFunction
+) => {
+     try {
+          
+          const receivedApplications = await prisma.jobPost.findMany({
+               where: {
+                    recruiter_id: res.locals?.user.id
+               },
+               include:{
+                    applications: {
+                         include: {
+                              
+                         }
+                    }
+               }
+          })
 
-// get all applications
-export const getAllApplicationsByCandidate =  async () => {}
+
+          res.send({
+               message: `Application added`,
+               status: 200,
+               payload: receivedApplications,
+          })
+     } catch (error) {
+          next(error)
+     }
+}
+
+// get all myapplications
+export const getAllApplicationsByCandidate =  async (
+     req: Request,
+     res: Response,
+     next: NextFunction
+) => {
+     try {
+          
+          const myApplications = await prisma.application.findMany({
+               where: {
+                    candidate_id: res.locals?.user.id
+               }
+          })      
+
+
+          res.send({
+               message: `My Applications`,
+               status: 200,
+               payload: myApplications,
+          })
+     } catch (error) {
+          next(error)
+     }
+}
 
 // get application by id
 export const getApplicationById =  async (
@@ -20,7 +71,8 @@ export const getApplicationById =  async (
 
           const application = await prisma.application.findFirst({
                where: {
-                    id: req.params.application_id
+                    id: req.params.application_id,
+                    job_post_id: req.params.jobpost_id
                }
           });
 

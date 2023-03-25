@@ -16,7 +16,7 @@ export const AuthGuard = () => {
      localStorage.setItem("redirect_to", location.pathname);
      localStorage.setItem("loginMessage", "You need to log in to continue");
 
-     if (!accessToken) {
+     if (accessToken) {
           axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
      }    
    

@@ -24,7 +24,7 @@ const Router = () => {
                element: <ClientLayout />,
                children: [
                     { element: <SearchPage />, index: true},
-                    { path: 'search-results/', element: <SearchResults />},
+                    { path: 'search-results', element: <SearchResults />},
                     // { path: 'jobs/:cid', element: <CompanyJobs />}, // A list of jobs posted by a specific comany
                     { path: 'jobs/:cid/:jid', element: <JobDetailsPage />},
                     { path: 'jobs/', element: ''},

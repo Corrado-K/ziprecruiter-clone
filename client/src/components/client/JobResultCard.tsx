@@ -23,7 +23,7 @@ const JobResultCard = ({id, r_id, title, description, location, experience}:{id:
 
                     <span className='flex items-center text-xs space-x-1 p-1 bg-[#b2b2b28c] w-fit rounded-md my-5'>
                          <HiOutlineBriefcase /> 
-                         <span>Work type</span> 
+                         <span>{experience}</span> 
                     </span>
 
 

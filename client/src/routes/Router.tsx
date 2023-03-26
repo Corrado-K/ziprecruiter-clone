@@ -16,6 +16,7 @@ import { HelpPage } from "../pages/admin/HelpPage";
 import JobPostModal from "../components/admin/JobPostModal";
 import UpdateJobPostModal from "../components/admin/UpdateJobPostModal";
 import RoleGuard from "./RoleGuard";
+import { MyApplicationsPage } from "../pages/client/MyApplicationsPage";
 
 const Router = () => { 
      return useRoutes([
@@ -27,7 +28,7 @@ const Router = () => {
                     { path: 'search-results', element: <SearchResults />},
                     // { path: 'jobs/:cid', element: <CompanyJobs />}, // A list of jobs posted by a specific comany
                     { path: 'jobs/:cid/:jid', element: <JobDetailsPage />},
-                    { path: 'jobs/', element: ''},
+                    { path: 'myapplications/', element: <MyApplicationsPage />},
                     { path: 'login', element: <LoginPage /> },
                     { path: 'register', element: <RegisterPage /> }
                ]

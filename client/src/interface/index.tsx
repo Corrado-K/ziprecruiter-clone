@@ -31,3 +31,14 @@ export interface IJobPost {
      createdAt: string;
      updatedAt: string;
 }
+
+export interface IApplication {
+     id: string;
+     coverletter: string;
+     resume: string;
+     status: string;
+     candidate_id: string;
+     job_post_id: string;
+     createdAt: string;
+     updatedAt: string;
+}

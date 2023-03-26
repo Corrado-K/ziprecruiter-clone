@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import jobPostReducer from './jobPostSlice'
+import applicationReducer from './applicationSlice'
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 
 export const store = configureStore({
      reducer: {
-          jobPost: jobPostReducer
+          jobPost: jobPostReducer,
+          application: applicationReducer
      },
      middleware(getDefaultMiddleware) {
           return getDefaultMiddleware({ serializableCheck: false })

@@ -16,7 +16,7 @@ export const ClientNavbar = () => {
           navigator('/login')
      }
 
-     const navMenuItems = [{ name: "Jobs", path: '' }, { name: "My Applications", path: '#' }, { name: "Profile", path: '#' }];
+     const navMenuItems = [{ name: "Jobs", path: '' }, { name: "My Applications", path: '/myapplications' }, { name: "Profile", path: '#' }];
 
      return (
           <div style={navbarStyle} className="">
@@ -48,8 +48,9 @@ export const ClientNavbar = () => {
      );
 };
 
-const navbarStyle = {
+const navbarStyle: {} = {
      background: 'white',
+     position: 'sticky',
      width: '100%',
      height: '2%',
      display: 'flex',

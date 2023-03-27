@@ -21,9 +21,6 @@ app.use(cors())
 app.use(compression())
 app.use(morgan("dev"))
 
-// File handler
-app.use(upload.single('file'))
-
 // Router
 app.use(router)
 

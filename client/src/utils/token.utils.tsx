@@ -52,4 +52,5 @@ export const getUserData = () => {
 export const clearUserData = () => {
      localStorage.removeItem('userData');
      localStorage.removeItem('refreshToken');
+     localStorage.removeItem('redirect_to');
 }

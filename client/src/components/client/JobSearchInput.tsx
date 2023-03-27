@@ -57,7 +57,7 @@ const JobSearchInput = () => {
                               value={formik.values.location}
                          />
                     </div>
-                    <button type='submit' className="py-4 px-10 bg-[#1a7460] text-white rounded-full">Search Jobs</button>
+                    <button type='submit' className="px-10 bg-[#1a7460] text-white rounded-full">Search Jobs</button>
                </form>
                <p className='text-red-500 text-sm'>{formik.errors.keywords}</p>
               </div>

@@ -14,11 +14,8 @@ export const SearchResults = () => {
      const search = new URLSearchParams(window.location.search)
      const keywords = search.get('keywords')
      const location = search.get('location')
-     
 
      const results: any | null = useAppSelector(selectJobPosts)
-
-
 
      useEffect(() => {  
 
@@ -43,7 +40,6 @@ export const SearchResults = () => {
           searchQuery(keywords, location)
      }, [keywords, location]);
 
-     // console.log(results);
      
      return (
           <div className="w-full flex flex-col justify-center">

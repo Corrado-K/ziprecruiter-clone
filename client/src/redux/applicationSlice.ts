@@ -36,47 +36,57 @@ const applicationSlice = createSlice({
                //      state.status = 'failed'
                // })
 
-               .addCase(fetchMyapplications.fulfilled, (state,action) => {
+               .addCase(fetchRecruiterApplications.fulfilled, (state,action) => {
                     // @ts-ignore
                     state.applications = action.payload
                     state.status = 'loaded'
                })
-               .addCase(fetchMyapplications.rejected, (state,action) => {
+               .addCase(fetchRecruiterApplications.rejected, (state,action) => {
                     state.error = action.error.message ?? 'Error while searching your job post'
                     state.status = 'failed'
                })
 
-               .addCase(fetchapplicationById.fulfilled, (state,action) => {
+               .addCase(fetchMyApplications.fulfilled, (state,action) => {
                     // @ts-ignore
                     state.applications = action.payload
                     state.status = 'loaded'
                })
-               .addCase(fetchapplicationById.rejected, (state,action) => {
+               .addCase(fetchMyApplications.rejected, (state,action) => {
+                    state.error = action.error.message ?? 'Error while searching your job post'
+                    state.status = 'failed'
+               })
+
+               .addCase(fetchApplicationById.fulfilled, (state,action) => {
+                    // @ts-ignore
+                    state.applications = action.payload
+                    state.status = 'loaded'
+               })
+               .addCase(fetchApplicationById.rejected, (state,action) => {
                     state.error = action.error.message ?? 'Error while searching job post by id'
                     state.status = 'failed'
                })
 
-               .addCase(addapplication.fulfilled, (state) => {
+               .addCase(addApplication.fulfilled, (state) => {
                     // @ts-ignore
                     state.status = 'idle'
                })
-               .addCase(addapplication.rejected, (state) => {
+               .addCase(addApplication.rejected, (state) => {
                     state.error = 'Error while adding job posts'
                     state.status = 'failed'
                })
 
-               .addCase(updateapplication.fulfilled, (state) => {
+               .addCase(updateApplicationStatus.fulfilled, (state) => {
                     state.status = 'idle'
                })
-               .addCase(updateapplication.rejected, (state,action) => {
+               .addCase(updateApplicationStatus.rejected, (state,action) => {
                     state.error = action.error.message ?? 'Error while updating job post'
                     state.status = 'failed'
                })
 
-               .addCase(deleteapplication.fulfilled, (state,action) => {
+               .addCase(deleteApplication.fulfilled, (state,action) => {
                     state.status = 'idle'
                })
-               .addCase(deleteapplication.rejected, (state,action) => {
+               .addCase(deleteApplication.rejected, (state,action) => {
                     state.error = action.error.message ?? 'Error while deleting for job post'
                     state.status = 'failed'
                })
@@ -85,11 +95,12 @@ const applicationSlice = createSlice({
           builder
                .addMatcher(
                     isAnyOf(
-                         fetchMyapplications.pending,
-                         fetchapplicationById.pending,
-                         addapplication.pending,
-                         updateapplication.pending,
-                         deleteapplication.pending,
+                         fetchMyApplications.pending,
+                         fetchRecruiterApplications.pending,
+                         fetchApplicationById.pending,
+                         addApplication.pending,
+                         updateApplicationStatus.pending,
+                         deleteApplication.pending,
                     ), 
                     (state) => {
                          state.status = "loading"
@@ -108,35 +119,45 @@ export const selectapplicationsError = (state: RootState) => state.application.e
 
 
 
-export const fetchMyapplications = createAsyncThunk('fetchMyapplications', async (id: string|undefined) => {
+export const fetchRecruiterApplications = createAsyncThunk('fetchRecruiterApplications', async () => {
+     const { data } = await axiosInstance<IApplication>({
+          method: 'GET', url: `/application/received`
+     })
+     return data
+})
+
+export const fetchMyApplications = createAsyncThunk('fetchMyApplications', async () => {
      const { data } = await axiosInstance<IApplication>({
           method: 'GET', url: `/application/myapplications`
      })
      return data
 })
 
-export const fetchapplicationById = createAsyncThunk('fetchapplicationById', async (id: string|undefined) => {
+export const fetchApplicationById = createAsyncThunk('fetchApplicationById', async (obj: { application_id: string }) => {
      const { data } = await axiosInstance<IApplication>({
-          method: 'GET', url: `/application/${id}`
+          method: 'GET',  url: `/application/myapplications/${obj.application_id}`
      })
      return data
 })
 
-export const addapplication = createAsyncThunk('addapplication', async (obj: { title: string, description: string, location: string, experience:string }) => {
+export const addApplication = createAsyncThunk('addApplication', async (obj: { resume: File, jobpost_id: string }) => {
      const { data } = await axiosInstance<IApplication>({
-          method: 'POST', url: `/application`, data: { title: obj.title, description: obj.description, location: obj.location, experience: obj.experience  }
+          method: 'POST', url: `/application`, data: { resume: obj.resume, jobpost_id: obj.jobpost_id },
+          headers: {
+               'Content-Type': 'multipart/form-data'
+          }
      })
      return data
 })
 
-export const updateapplication = createAsyncThunk('updateapplication', async (obj: { id:string, title: string, description: string, location: string, experience:string }) => {
+export const updateApplicationStatus = createAsyncThunk('updateApplicationStatus', async (obj: { id:string, status: string }) => {
      const { data } = await axiosInstance<IApplication>({
-          method: 'PUT', url: `/application/${obj.id}`, data: { title: obj.title, description: obj.description, location: obj.location, experience: obj.experience  }
+          method: 'PUT', url: `/application/${obj.id}`, data: { status: obj.status  }
      })
      return data
 })
 
-export const deleteapplication = createAsyncThunk('deleteapplication', async (id: string) => {
+export const deleteApplication = createAsyncThunk('deleteApplication', async (id: string) => {
      const { data } = await axiosInstance<IApplication>({
           method: 'DELETE', url: `/application/${id}`
      })

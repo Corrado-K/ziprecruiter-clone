@@ -26,9 +26,7 @@ const Router = () => {
                children: [
                     { element: <SearchPage />, index: true},
                     { path: 'search-results', element: <SearchResults />},
-                    // { path: 'jobs/:cid', element: <CompanyJobs />}, // A list of jobs posted by a specific comany
                     { path: 'jobs/:cid/:jid', element: <JobDetailsPage />},
-                    { path: 'myapplications/', element: <MyApplicationsPage />},
                     { path: 'login', element: <LoginPage /> },
                     { path: 'register', element: <RegisterPage /> }
                ]
@@ -42,10 +40,10 @@ const Router = () => {
                          path: '/',
                          children: [
                               { element: null, index:true },
+                              { path: 'myapplications/', element: <MyApplicationsPage />},
                               { path: 'jobs/:cid/:jid/', element: <JobDetailsPage />,
                                    children: [
                                         { path: "upload", element: <UploadDocumentsModal /> },
-                                        // { path: ":jid", element: <UploadDocumentsModal /> },
                                    ]
                               },
                          ]

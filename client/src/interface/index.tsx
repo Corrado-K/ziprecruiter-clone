@@ -34,7 +34,6 @@ export interface IJobPost {
 
 export interface IApplication {
      id: string;
-     coverletter: string;
      resume: string;
      status: string;
      candidate_id: string;

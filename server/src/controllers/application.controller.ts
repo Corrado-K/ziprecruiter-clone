@@ -10,25 +10,26 @@ export const getAllApplicationsForRecruiter =  async (
      next: NextFunction
 ) => {
      try {
-          
-          const receivedApplications = await prisma.jobPost.findMany({
-               where: {
-                    recruiter_id: res.locals?.user.id
-               },
-               include:{
-                    applications: {
-                         include: {
+          // need to do the logic for this query
+
+          // const receivedApplications = await prisma.jobPost.findMany({
+          //      where: {
+          //           recruiter_id: res.locals?.user.id
+          //      },
+          //      include:{
+          //           applications: {
+          //                include: {
                               
-                         }
-                    }
-               }
-          })
+          //                }
+          //           }
+          //      }
+          // })
 
 
           res.send({
                message: `Application added`,
                status: 200,
-               payload: receivedApplications,
+               // payload: receivedApplications,
           })
      } catch (error) {
           next(error)
@@ -56,6 +57,7 @@ export const getAllApplicationsByCandidate =  async (
                payload: myApplications,
           })
      } catch (error) {
+          console.log(error);
           next(error)
      }
 }
@@ -93,7 +95,7 @@ export const addApplication =  async (
      res: Response,
      next: NextFunction
 ) => {
-     const { resume } = req.body
+     const { jobpost_id } = req.body
 
      try {
           await prisma.user.findFirst({
@@ -104,9 +106,9 @@ export const addApplication =  async (
 
           const application = await prisma.application.create({
                data: {
-                    resume: resume,
+                    resume: req.file?.path || '',
                     candidate_id: res.locals?.user.id,
-                    job_post_id: req.params.post_id,
+                    job_post_id: jobpost_id,
                },
           });
 

@@ -1,12 +1,17 @@
 import React, { useState, useRef } from "react";
 import { HiOutlineBuildingOffice2, HiOutlineXMark } from "react-icons/hi2";
 import ResumeImg from "../../assets/resume.svg";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { addApplication } from "../../redux/applicationSlice";
+import { useAppDispatch } from '../../redux/store';
+import { AxiosError } from "axios";
 
 const UploadDocumentsModal = () => {
      const [showModal, setShowModal] = useState(true);
      const [file, setFile] = useState<File>()
      const inputRef = useRef<HTMLInputElement | null>(null)
+     const dispatch = useAppDispatch()
+     const { jid } = useParams()
 
      const navigator = useNavigate()
 
@@ -27,10 +32,20 @@ const UploadDocumentsModal = () => {
           e.target.value = null // reset file input
           setFile(fileObj)
      };
-     const handleSubmit = (e:any) => {
+     const handleSubmit = async (e:any) => {
           e.preventDefault()
           console.log(file);
           // use upload application post request here
+
+          try {
+               if (file !== undefined && jid !== undefined) {
+                    await dispatch(addApplication({resume: file, jobpost_id: jid}))
+                    navigator(-1)
+               }
+          } catch (error) {
+               const { response } = error as AxiosError<{ message: string }>;
+          }
+
           // get the user id from local storage
           // get job post id from url param
      }
@@ -86,8 +101,7 @@ const UploadDocumentsModal = () => {
                                                        ref={inputRef}
                                                        onChange={handleFileChange}
                                                        accept=".docx,.txt,.pdf"
-                                                       name=""
-                                                       id=""
+                                                       name="resume"
                                                   />{
                                                        file ?
                                                             <>

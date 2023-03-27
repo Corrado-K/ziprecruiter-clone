@@ -27,7 +27,7 @@ export const LoginPage = () => {
      return (
           <Container>
                <div className="flex justify-center items-center h-[90vh]">
-                    <div className="bg-white flex flex-col items-center w-[30%] pt-10 pb-8 shadow-lg rounded-md">
+                    <div className="bg-white flex flex-col items-center min-w-[40%] pt-10 pb-8 shadow-lg rounded-md">
                          <h2 className="text-3xl font-medium mb-8">Sign In</h2>
 
                          <div className="flex space-x-7 mb-10">

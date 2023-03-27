@@ -36,8 +36,8 @@ export const RegisterPage = () => {
 
      return (
           <Container>
-               <div className="flex justify-center items-center h-[90vh]">
-                    <div className="bg-white flex flex-col items-center w-[30%] pt-10 pb-8 shadow-lg rounded-md">
+               <div className="flex justify-center items-center">
+                    <div className="bg-white flex flex-col items-center min-w-[40%] my-10 pt-10 pb-8 shadow-lg rounded-md">
                          <h2 className="text-3xl font-medium mb-8">Register</h2>
 
                          <div className="flex space-x-7 mb-10">

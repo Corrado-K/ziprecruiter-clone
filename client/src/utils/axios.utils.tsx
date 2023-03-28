@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(async (config) => {
                console.log("refreshing token before request...");
                const refreshToken = getRefreshToken();
                const { data } = await axios.post<LoginResponse>(
-                    `${SERVER_URL}/auth/refresh-token`,
+                    `${SERVER_URL}/auth/refreshToken`,
                     { token: refreshToken }
                );
                config.headers.Authorization = `Bearer ${data.accessToken}`;

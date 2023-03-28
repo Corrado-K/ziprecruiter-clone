@@ -5,7 +5,7 @@ import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 
 
-const JobDetailsCard = ({id, r_id, title, description, location, experience}:{id:string, r_id:string, title:string, description:string, location:string, experience:string}) => {
+const JobDetailsCard = ({id, title, description, location, experience}:{id:string, title:string, description:string, location:string, experience:string}) => {
 
      const { isLoggedIn } = useContext(AuthContext)
      const navigator = useNavigate()
@@ -19,9 +19,6 @@ const JobDetailsCard = ({id, r_id, title, description, location, experience}:{id
 
           navigator('upload')
 
-          // Send user email to the job application api
-          // the api takes email and checks if the use
-
      }
      return (
           <div className="w-[40%] bg-white shadow-lg rounded-xl p-10">
@@ -31,23 +28,20 @@ const JobDetailsCard = ({id, r_id, title, description, location, experience}:{id
                {/* Job icon */}
                <HiOutlineBuildingOffice2 color='#b2b2b28c' size={35} />
 
-               <h3 className="text-lg font-semibold mb-3 capitalize">{title}</h3>
-
-               <p>Recruiter Name</p>
-               <p>{location}</p>
+               <h3 className="text-lg font-semibold mt-3 uppercase">{title}</h3>
+               <p className="capitalize">{location}</p>
 
                <span className='flex items-center text-xs space-x-1 p-1 bg-[#b2b2b28c] w-fit rounded-md my-5'>
                     <HiOutlineBriefcase /> 
-                    <span>{experience}</span> 
+                    <span className="capitalize">{experience}</span> 
                </span>
 
                <div className={`overflow-y-auto h-auto max-h-72 `}>
-                    <p className="text-sm shadow-inner shadow-gray-300 rounded-lg p-4">
+                    <p className="text-sm shadow-inner capitalize shadow-gray-300 rounded-lg p-4">
                          {description}
                     </p>     
                </div>
-               {/* <div className="blur-sm -mt-4 h-5 p-2 w-[90%] bg-white"></div>
-               <div className="blur-md -mt-4 h-5 p-2 w-full bg-white"></div> */}
+               
                <div className="border-b mt-10"></div>
 
 

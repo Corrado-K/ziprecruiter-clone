@@ -25,16 +25,7 @@ const applicationSlice = createSlice({
      reducers: {},
      extraReducers: (builder) => {
           builder
-          
-               // .addCase(searchapplications.fulfilled, (state,action) => {
-               //      // @ts-ignore
-               //      state.applications = action.payload
-               //      state.status = 'loaded'
-               // })
-               // .addCase(searchapplications.rejected, (state,action) => {
-               //      state.error = action.error.message ?? 'Error while searching for job posts'
-               //      state.status = 'failed'
-               // })
+
 
                .addCase(fetchRecruiterApplications.fulfilled, (state,action) => {
                     // @ts-ignore

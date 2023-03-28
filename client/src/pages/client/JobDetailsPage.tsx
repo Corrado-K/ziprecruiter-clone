@@ -26,7 +26,7 @@ const JobDetailsPage = () => {
      return (
           <div className="w-full flex flex-col items-center justify-center pt-[2%]">
                {/* @ts-ignore */}
-               <JobDetailsCard id={jobDetails?.id} r_id={jobDetails?.recruiter_id} title={jobDetails?.title} location={jobDetails?.location} experience={jobDetails?.experience} description={jobDetails?.description} />     
+               <JobDetailsCard id={jobDetails?.id} title={jobDetails?.title} location={jobDetails?.location} experience={jobDetails?.experience} description={jobDetails?.description} />     
                <Outlet />        
           </div>
      )

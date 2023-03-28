@@ -41,3 +41,18 @@ export interface IApplication {
      createdAt: string;
      updatedAt: string;
 }
+
+export interface IApplicationDisplay {
+     id: string;
+     resume: string;
+     status: string;
+     job_post: {
+          experience: string;
+          id: string;
+          title: string;
+     };
+     candidate_id: string;
+     job_post_id: string;
+     createdAt: string;
+     updatedAt: string;
+}

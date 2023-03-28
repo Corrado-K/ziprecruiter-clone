@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
 
 const ACCESS_TOKEN = process.env.ACCESS_TOKEN as jwt.Secret
@@ -39,3 +39,15 @@ export const setRefreshToken = (res: Response, token: string) => {
           httpOnly: true
      })
 }
+
+// export const signAccessToken = (id: number, email: string, role: string, tokenId: string): string => {
+//      return jwt.sign({ id, email, role, token_id: tokenId }, ACCESS_TOKEN, {
+//           expiresIn: 3600,
+//      });
+// }
+   
+// export const signRefreshToken = (id: number, email: string, role: string, tokenId: string): string => {
+//      return jwt.sign({ id, email, role, token_id: tokenId }, REFRESH_TOKEN, {
+//           expiresIn: 86400,
+//      });
+// }

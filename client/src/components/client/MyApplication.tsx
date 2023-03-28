@@ -7,7 +7,7 @@ import { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
-const MyApplication = ({id, status, createdAt}:{id: string, status: string, createdAt: string}) => {
+const MyApplication = ({id, status, createdAt, title, experience}:{id: string, status: string, createdAt: string, title: string, experience: string}) => {
      const dateTimeString = createdAt;
      const date = new Date(dateTimeString)
      const year = date.getFullYear()
@@ -63,8 +63,8 @@ const MyApplication = ({id, status, createdAt}:{id: string, status: string, crea
                          <BsFileEarmarkText color='#fff' size={30} />
                     </span>
                     <div>
-                         <h2 className='text-lg font-semibold'>Job title</h2>
-                         <p className='text-sm'>Experience</p>
+                         <h2 className='text-lg font-semibold uppercase'>{title}</h2>
+                         <p className='text-sm uppercase'>{experience}</p>
                     </div>
                </div>
                {/* date of application & status */}

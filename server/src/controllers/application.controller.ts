@@ -12,24 +12,36 @@ export const getAllApplicationsForRecruiter =  async (
      try {
           // need to do the logic for this query
 
-          // const receivedApplications = await prisma.jobPost.findMany({
-          //      where: {
-          //           recruiter_id: res.locals?.user.id
-          //      },
-          //      include:{
-          //           applications: {
-          //                include: {
-                              
-          //                }
-          //           }
-          //      }
-          // })
+          const userJobPosts = await prisma.jobPost.findMany({
+               where: {
+                 recruiter_id: res.locals.user?.id
+               },
+               include: {
+                    applications: {
+                         select: {
+                              id: true,
+                              status: true,
+                              resume: true,
+                              candidate: {
+                                   select: {
+                                        fname: true,
+                                        lname: true,
+                                        email: true
+                                   }
+                              }
+                         }
+                    }
+               }
+          })
+          
+          const myApplications = userJobPosts.flatMap(jobPost => jobPost.applications)   
+
 
 
           res.send({
-               message: `Application added`,
+               message: `My Received Applications`,
                status: 200,
-               // payload: receivedApplications,
+               payload: myApplications,
           })
      } catch (error) {
           next(error)
@@ -47,6 +59,15 @@ export const getAllApplicationsByCandidate =  async (
           const myApplications = await prisma.application.findMany({
                where: {
                     candidate_id: res.locals?.user.id
+               },
+               include: {
+                    job_post: {
+                         select: {
+                              id: true,
+                              title: true,
+                              experience: true,
+                         }
+                    }
                }
           })      
 
@@ -143,11 +164,12 @@ export const updateApplicationStatus =  async (
 
           if (isCreator) {
                await prisma.application.update({
+                    // include: { ApplicationStatus },
                     where: {
                          id: req.params.application_id
                     },
                     data: {
-                         status: status
+                         status:  status
                     }
                })
 

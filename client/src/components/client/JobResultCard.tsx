@@ -13,18 +13,16 @@ const JobResultCard = ({id, r_id, title, description, location, experience}:{id:
                     {/* Job icon */}
                     <HiOutlineBuildingOffice2 color='#b2b2b28c' size={35} />
 
-                    <h3 className="font-semibold mb-3">{title}</h3>
-
-                    <p className="text-[13px]">Recruiter Name</p>
-                    <p className="text-[13px]">{location}</p>
+                    <h3 className="font-semibold mt-3 uppercase">{title}</h3>
+                    <p className="text-[13px] capitalize">{location}</p>
 
                     <span className='flex items-center text-xs space-x-1 p-1 bg-[#b2b2b28c] w-fit rounded-md my-5'>
                          <HiOutlineBriefcase /> 
-                         <span>{experience}</span> 
+                         <span className="capitalize">{experience}</span> 
                     </span>
 
 
-                    <p className="text-xs">
+                    <p className="text-xs capitalize">
                          {description}
                     </p>
                </div>

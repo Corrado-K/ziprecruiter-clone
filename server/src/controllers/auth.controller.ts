@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { comparePassword, hashPassword } from "../utils/util.password";
 import { PrismaClient } from "@prisma/client";
 import { generateAccessToken, generateRefreshToken, setRefreshToken } from '../utils/util.token';
+import * as jwt from 'jsonwebtoken'
 
 const prisma = new PrismaClient();
 
@@ -91,6 +92,42 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
           next(error)
      }
 };
+
+export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+
+     const {token} =  req.body
+     let user: jwt.JwtPayload;
+
+     try {
+          user = jwt.verify(
+               token,
+               process.env.REFRESH_TOKEN as jwt.Secret
+          ) as jwt.JwtPayload;
+
+          // get the old refresh token and check if it exists
+          // if it exists, create new token
+          // LEARN ABOUT REDIS AND ADDING OLD REFRESH TOKENS TO CACHE
+          // const oldRefreshToken = user.token_id as string;
+
+          const jwtTokenPayload = {
+               id: user?.id,
+               email: user?.email,
+               fname: user?.fname,
+               lname: user?.lname,
+               role: user?.role
+          }
+
+          const accessToken = generateAccessToken(jwtTokenPayload)
+          const refreshToken = generateRefreshToken(jwtTokenPayload)
+          setRefreshToken(res, refreshToken)
+          res.send({
+               accessToken: accessToken,
+               refreshToken: refreshToken
+          });
+     } catch (error) {
+          next(error)
+     }
+}
 
 export const deleteUserAccount = async (req: Request, res: Response, next: NextFunction) => {
 

@@ -41,9 +41,10 @@ const Router = () => {
                          children: [
                               { element: null, index:true },
                               { path: 'myapplications/', element: <MyApplicationsPage />},
+                              // { path: "upload", element: <UploadDocumentsModal /> },
                               { path: 'jobs/:cid/:jid/', element: <JobDetailsPage />,
                                    children: [
-                                        { path: "upload", element: <UploadDocumentsModal /> },
+                                        { path: ":upload", element: <UploadDocumentsModal /> },
                                    ]
                               },
                          ]

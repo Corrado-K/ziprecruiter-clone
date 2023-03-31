@@ -8,8 +8,8 @@ import { fetchMyApplications, selectapplications } from '../../redux/application
 import Loader from '../../assets/Loader';
 
 export const MyApplicationsPage = () => {
-     const [loading, setloading] = useState(true);
-     const navigator = useNavigate();
+     const [loading, setloading] = useState(true)
+     const navigator = useNavigate()
      const dispatch = useAppDispatch()
      const [myApplications, setMyApplications] = useState<IApplicationDisplay[]>([]);
 
@@ -31,6 +31,8 @@ export const MyApplicationsPage = () => {
      }, []);
 
      console.log(myApplications);
+
+
      
      
 
@@ -55,6 +57,8 @@ export const MyApplicationsPage = () => {
                          }
                          
                     </div>
+
+                    <img src="" alt="" />
                </Container>
           </div>
      )

@@ -17,7 +17,7 @@ const JobDetailsCard = ({id, title, description, location, experience}:{id:strin
                return navigator('/login')  
           }
 
-          navigator('upload')
+          navigator(':upload')
 
      }
      return (

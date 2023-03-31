@@ -81,6 +81,16 @@ const applicationSlice = createSlice({
                     state.error = action.error.message ?? 'Error while deleting for job post'
                     state.status = 'failed'
                })
+
+               .addCase(getResume.fulfilled, (state,action) => {
+                    // @ts-ignore
+                    state.applications = action.payload
+                    state.status = 'loaded'
+               })
+               .addCase(getResume.rejected, (state,action) => {
+                    state.error = action.error.message ?? 'Error while fetching resume'
+                    state.status = 'failed'
+               })
           
 
           builder
@@ -92,6 +102,7 @@ const applicationSlice = createSlice({
                          addApplication.pending,
                          updateApplicationStatus.pending,
                          deleteApplication.pending,
+                         getResume.pending
                     ), 
                     (state) => {
                          state.status = "loading"
@@ -151,6 +162,13 @@ export const updateApplicationStatus = createAsyncThunk('updateApplicationStatus
 export const deleteApplication = createAsyncThunk('deleteApplication', async (id: string) => {
      const { data } = await axiosInstance<IApplication>({
           method: 'DELETE', url: `/application/${id}`
+     })
+     return data
+})
+
+export const getResume = createAsyncThunk('getresume', async(id: string) => {
+     const { data } = await axiosInstance<any>({
+          method: 'GET', url: `/application/file/${id}`
      })
      return data
 })

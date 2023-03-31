@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { fetchRecruiterApplications, updateApplicationStatus } from '../../redux/applicationSlice';
+import { fetchRecruiterApplications, updateApplicationStatus, getResume } from '../../redux/applicationSlice';
 
 const JobApplicantsTable = () => {
 
@@ -14,6 +14,17 @@ const JobApplicantsTable = () => {
                const data = await dispatch(fetchRecruiterApplications())
                // @ts-ignore
                setApplicationPayload(data?.payload.payload)
+          } catch (error) {
+               console.error(error);
+          }
+     }
+
+     const handleFileView = async (id:string) => {
+          try {
+               const response = await dispatch(getResume(id));
+
+               window.open('localhost:5000\\'+response?.payload?.payload, 'resume' ,'width=500,height=500')
+               
           } catch (error) {
                console.error(error);
           }
@@ -43,7 +54,7 @@ const JobApplicantsTable = () => {
                     <h4 className='font-semibold'>TODAY'S APPOINTMENTS</h4>
                </div>
 
-               <div className="">
+               <div>
                     <table className="border-collapse w-full mt-4">
                          <thead>
                               <tr className='text-white bg-[#1a7460]'>
@@ -61,7 +72,7 @@ const JobApplicantsTable = () => {
                                         <tr key={index} className='hover:bg-[#f0fffd] odd:bg-[#eeeeee] even:bg-[#e3edea]'>
                                              <td className='p-3 border border-gray-300 text-sm font-medium'>{item?.candidate?.fname + ' ' + item?.candidate?.lname}</td>
                                              <td className='p-3 border border-gray-300 text-sm font-medium'>{item?.candidate?.email}</td>
-                                             <td className='p-3 border border-gray-300 text-sm font-medium'>{item?.resume}</td>
+                                             <td className='p-3 border border-gray-300 text-sm font-medium hover:underline hover:text-sky-500 hover: cursor-pointer' onClick={() => handleFileView(item?.id)}>{item?.resume}</td>
                                              <td className='p-3 border border-gray-300 text-sm font-medium'>{item?.status}</td>
                                              <td className='p-3 border border-gray-300 text-sm text-right'>
                                                   <form>
@@ -72,28 +83,15 @@ const JobApplicantsTable = () => {
                                                        </select>
                                                   </form>
                                                   
-                                                  {/* <span className='mr-3 text-sky-400 underline cursor-pointer'>Hire</span>                                   
-                                                  <span className='mr-3 text-gray-400 underline cursor-pointer'>Keep Pending</span>                                   
-                                                  <span className='mr-3 text-red-400 underline cursor-pointer'>Reject</span>                                    */}
                                              </td>
                                         </tr>
                                    ))
                               }
 
-                              {/* <tr className='hover:bg-[#f0fffd] odd:bg-[#eeeeee] even:bg-[#e3edea]'>
-                                   <td className='p-3 border border-gray-300 text-sm'>Emmanuel Kebede Martey</td>
-                                   <td className='p-3 border border-gray-300 text-sm'>kebemartey@gmail.com</td>
-                                   <td className='p-3 border border-gray-300 text-sm'>CV file_name</td>
-                                   <td className='p-3 border border-gray-300 text-sm'>Status</td>
-                                   <td className='p-3 border border-gray-300 text-sm text-right'>
-                                        <span className='mr-3 text-sky-400 underline cursor-pointer'>Hire</span>                                   
-                                        <span className='mr-3 text-gray-400 underline cursor-pointer'>Keep Pending</span>                                   
-                                        <span className='mr-3 text-red-400 underline cursor-pointer'>Reject</span>                                   
-                                   </td>
-                              </tr> */}
                          </tbody>
                     </table>
                </div>
+
           </div>
      )
 }

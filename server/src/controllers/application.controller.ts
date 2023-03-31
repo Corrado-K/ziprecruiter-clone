@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { PrismaClient } from "@prisma/client";
+import fs from 'fs'
+import path from 'path'
 
 const prisma = new PrismaClient();
 
@@ -216,3 +218,50 @@ export const deleteApplication =  async (
           next(error)
      }
 }
+
+
+export const getResume = async (
+     req: Request,
+     res: Response,
+     next: NextFunction
+) => {
+     
+     try {
+          const application = await prisma.application.findUnique({
+               where: {
+                    id: req.params.application_id,
+               },
+          });
+
+          const fileName = application?.resume
+          const filePath = path.resolve(__dirname,'../..') + '\\' + fileName
+
+          console.log(fileName);
+          
+
+          // 'C:\\Code\\RGT\\ZipRecruiterClone\\server\\'
+          fs.access(filePath, fs.constants.F_OK, (error) => {
+               if (error) {
+                    res.status(404).send('File not found!')
+               } else {
+                    res.send({
+                         message: `Application deleted`,
+                         status: 200,
+                         payload: fileName
+                    });
+                    // res.sendFile(filePath)
+               }
+          })
+
+
+          // res.send({
+          //      message: `Application deleted`,
+          //      status: 200,
+          // });
+          
+
+     } catch (error) {
+          next(error)
+     }
+};
+

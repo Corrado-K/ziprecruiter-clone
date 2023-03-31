@@ -8,6 +8,7 @@ import { errorHandler } from './middlewares/middleware.errorHandler'
 import { NotFoundHandler } from './middlewares/middleware.notFoundHandler'
 import { upload } from './middlewares/middleware.fileHandler'
 import router from './routes/routes'
+import path from 'path'
 
 const app: Express = express()
 
@@ -20,6 +21,7 @@ app.use(json())
 app.use(cors())
 app.use(compression())
 app.use(morgan("dev"))
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 // Router
 app.use(router)

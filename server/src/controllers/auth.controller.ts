@@ -18,9 +18,9 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
           });
 
           if (isDuplicateUser) {
-               return res.status(409).json({
+               return next(res.status(409).json({
                     message: `User with this email already exists`,
-               });
+               }))
           }
 
           const newUser = await prisma.user.create({
@@ -33,11 +33,11 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
           });
 
           if (!newUser) {
-               return res.status(404).json({
+               return next(res.status(404).json({
                     errors: [{
                          message: `User not added`
                     }]
-               })
+               }))
           }
 
           res.send({
@@ -56,7 +56,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
           const user = await prisma.user.findUnique({ where: { email: email } });
 
           if (!user) {
-               return res.status(404).json({ message: 'User with email not found' });
+               return next(res.status(404).json({ message: 'User with email not found' }))
           }
 
           const verifiedPassword = await comparePassword(
@@ -65,7 +65,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
           );
 
           if (!verifiedPassword) {
-               return res.status(401).json({ message: "Incorrect password" });
+               return next(res.status(401).json({ message: "Incorrect password" }))
           }
 
           // do jwt tokenizing here

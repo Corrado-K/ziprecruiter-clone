@@ -11,8 +11,8 @@ const router = Router();
 router.get('/', getAllJobPosts) // getall job post
 router.get('/myposts/', jwtAuth, getMyJobPosts) // get all my job post
 router.get('/:post_id', getJobPostById) // get job post
-router.post('/', jwtAuth, validateInput(postSchema), addJobPost) // add job post
-router.put('/:post_id', jwtAuth, validateInput(postSchema), updateJobPost) // update job post
+router.post('/', jwtAuth, addJobPost) // add job post
+router.put('/:post_id', jwtAuth, updateJobPost) // update job post
 router.delete('/:post_id', jwtAuth, deleteJobPost) // delete job post
 
 export default router;

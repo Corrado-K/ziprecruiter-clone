@@ -18,7 +18,9 @@ export const LoginPage = () => {
                try {
                     await login(values.email, values.password);
                } catch (error) {
-                    const { response } = error as AxiosError<{ message: string }>;
+                    const { response } = error as AxiosError<{
+                         message: string;
+                    }>;
                }
           },
           validationSchema: loginSchema,
@@ -83,7 +85,10 @@ export const LoginPage = () => {
                                    Forgot Password?
                               </span>
 
-                              <button type="submit" className="w-[90%] p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white">
+                              <button
+                                   type="submit"
+                                   className="w-[90%] p-3 mt-5 bg-[#277f6a] rounded-full font-bold text-white"
+                              >
                                    Sign In
                               </button>
                               {/* End form */}
